@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Upcube - Admin & Dashboard Template</title>
+    <title>Dashboard | Inventory Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
@@ -16,6 +16,8 @@
 
     <!-- DataTables -->
     <link href="{{asset('/admin')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin')}}/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
     <link href="{{asset('/admin')}}/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -64,8 +66,9 @@
 
 
 <!-- JAVASCRIPT -->
-<script src="{{asset('/admin')}}/assets/libs/jquery/jquery.min.js"></script>
-<script src="{{asset('/admin')}}/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="{{asset('/admin')}}/assets/libs/metismenu/metisMenu.min.js"></script>
 <script src="{{asset('/admin')}}/assets/libs/simplebar/simplebar.min.js"></script>
 <script src="{{asset('/admin')}}/assets/libs/node-waves/waves.min.js"></script>
@@ -87,6 +90,9 @@
 <script src="{{asset('/admin')}}/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <script src="{{asset('/admin')}}/assets/js/pages/dashboard.init.js"></script>
+
+<!-- Datatable init js -->
+<script src="{{asset('/admin')}}/assets/js/pages/datatables.init.js"></script>
 
 <!-- App js -->
 <script src="{{asset('/admin')}}/assets/js/app.js"></script>
