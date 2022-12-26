@@ -32,7 +32,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/change-password',[AdminController::class,'changePassword'])->name('change.password');
     Route::post('/admin/update-password',[AdminController::class,'updatePassword'])->name('update.password');
     //supplier route
-    Route::get('/supplier/all',[SupplierController::class,'supplierAll'])->name('supplier.all');
+    Route::controller(SupplierController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/supplier/all','supplierAll')->name('supplier.all');
+            Route::post('/supplier/store','supplierStore')->name('supplier.store');
+            Route::post('/supplier/update','supplierUpdate')->name('supplier.update');
+            Route::get('/supplier/edit/{id}','supplierEdit');
+        });
+    });
 });
 
 

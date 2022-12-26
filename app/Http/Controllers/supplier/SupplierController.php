@@ -12,4 +12,22 @@ class SupplierController extends Controller
         $allData = Supplier::latest()->get();
         return view('backend.supplier.all-supplier',['allData'=>$allData]);
     }
+
+    public function supplierStore(Request $request)
+    {
+        Supplier::supplierStore($request);
+        return redirect()->back()->with('massage','save successfully');
+    }
+
+    public function supplierUpdate(Request $request)
+    {
+        Supplier::supplierUpdate($request);
+        return redirect()->back()->with('massage','Update successfully');
+    }
+
+    public function supplierEdit($id)
+    {
+        $data = Supplier::find($id);
+        return response()->json($data);
+    }
 }
