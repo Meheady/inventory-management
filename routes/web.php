@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/supplier/store','supplierStore')->name('supplier.store');
             Route::post('/supplier/update','supplierUpdate')->name('supplier.update');
             Route::get('/supplier/edit/{id}','supplierEdit');
+            Route::get('/supplier/delete/{id}','supplierDelete');
         });
     });
 });

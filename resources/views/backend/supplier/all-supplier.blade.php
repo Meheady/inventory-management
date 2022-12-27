@@ -33,7 +33,7 @@
                                     <td>{{$item->status == 1 ?'Active':'Inactive'}}</td>
                                     <td>
                                         <button data-toggle="modal" class="btn btn-success edit" data-id="{{ $item->id }}" data-target="#editsupplier">Edit</button>
-                                        <a href="{{ $item->id }}" class="btn btn-danger">Del</a>
+                                        <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -180,6 +180,21 @@
                         else{
                             $("#inactivee").attr('checked', true);
                         }
+                    }
+                });
+            });
+            $(".delete").click(function(){
+                var getId = $(this).data('id');
+                var parent = $(this).parent();
+
+                $.ajax({
+                    url: "/admin/supplier/delete/"+getId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        parent.slideUp(300, function () {
+                            parent.closest("tr").remove();
+                        });
                     }
                 });
             });

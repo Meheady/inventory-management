@@ -30,4 +30,12 @@ class SupplierController extends Controller
         $data = Supplier::find($id);
         return response()->json($data);
     }
+
+    public function supplierDelete($id)
+    {
+        $data = Supplier::find($id);
+        $data->delete();
+        $allData = Supplier::latest()->get();
+        return response()->json($allData);
+    }
 }

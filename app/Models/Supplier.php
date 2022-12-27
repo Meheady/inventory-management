@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Supplier extends Model
 {
@@ -18,6 +19,7 @@ class Supplier extends Model
         $supplier->phone = $request->phone;
         $supplier->address = $request->address;
         $supplier->status = $request->status;
+        $supplier->created_by = Auth::user()->id;
         $supplier->save();
     }
 
@@ -31,6 +33,7 @@ class Supplier extends Model
         $supplier->phone = $request->phone;
         $supplier->address = $request->address;
         $supplier->status = $request->statuse;
+        $supplier->updated_by = Auth::user()->id;
         $supplier->save();
     }
 }
