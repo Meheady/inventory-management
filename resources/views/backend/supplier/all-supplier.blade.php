@@ -161,12 +161,13 @@
         $(document).ready(function(){
             $(".edit").click(function(){
                 var getId = $(this).data('id');
-
+                $("body").addClass("loading");
                 $.ajax({
                     url: "/admin/supplier/edit/"+getId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
+                        $("body").removeClass("loading");
                         console.log(res);
                         $("#namee").val(res.name);
                         $('#phonee').val(res.phone);
@@ -186,17 +187,31 @@
             $(".delete").click(function(){
                 var getId = $(this).data('id');
                 var parent = $(this).parent();
-
-                $.ajax({
-                    url: "/admin/supplier/delete/"+getId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        parent.slideUp(300, function () {
-                            parent.closest("tr").remove();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("body").addClass("loading");
+                        $.ajax({
+                            url: "/admin/supplier/delete/"+getId,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(res) {
+                                parent.slideUp(300, function () {
+                                    parent.closest("tr").remove();
+                                    $("body").removeClass("loading");
+                                });
+                            }
                         });
                     }
-                });
+                })
+
             });
         });
     </script>

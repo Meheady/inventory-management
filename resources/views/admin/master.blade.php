@@ -29,11 +29,29 @@
     <!-- App Css-->
     <link href="{{asset('/admin')}}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <style>
+        .overlay{
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1111;
+            background: rgba(255,255,255,0.8) url("/admin/loader.gif") center no-repeat;
+        }
+        body.loading{
+            overflow: hidden;
+        }
+        body.loading .overlay{
+            display: block;
+        }
+    </style>
 
 </head>
 
 <body data-topbar="dark">
-
+<div class="overlay"></div>
 <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
 <!-- Begin page -->
@@ -95,7 +113,8 @@
 <script src="{{asset('/admin')}}/assets/js/pages/datatables.init.js"></script>
 <!-- Sweet alert js -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="{{asset('/admin')}}/assets/js/code.js'"></script>
+
+<script src="{{asset('/admin')}}/assets/js/code.js"></script>
 
 <!-- App js -->
 <script src="{{asset('/admin')}}/assets/js/app.js"></script>
