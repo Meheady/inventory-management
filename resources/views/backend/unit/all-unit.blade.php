@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" data-toggle="modal" data-target="#addunit" class="btn btn-success">Add Supplier</button>
+                            <button type="button" data-toggle="modal" data-target="#addunit" class="btn btn-success">Add Unit</button>
                             <br><br>
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
@@ -45,8 +45,8 @@
     <div class="modal fade" id="addunit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Add Unit</h5>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Unit</h5>
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{{ route('unit.store') }}">
@@ -79,8 +79,8 @@
     <div class="modal fade" id="editunit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Add Unit</h5>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Unit</h5>
                 </div>
                 <div class="modal-body">
                     <form class="editUnit" method="post" action="{{ route('unit.update') }}">
@@ -95,8 +95,8 @@
                         <div class="form-group row mb-1">
                             <label for="status" class="col-form-label col-md-3">Status</label>
                             <div class="col-md-9">
-                                <label>Active<input type="radio" class="form-check-input" id="activee" value="1"  name="statuse"></label>
-                                <label>Inactive<input type="radio" class="form-check-input" id="inactivee" value="0"  name="statuse"></label>
+                                <label>Active<input type="radio" class="form-check-input" id="activee" value="1"  name="status"></label>
+                                <label>Inactive<input type="radio" class="form-check-input" id="inactivee" value="0"  name="status"></label>
                             </div>
                         </div>
 
@@ -119,23 +119,26 @@
         $(document).ready(function(){
             $(".edit").click(function(){
                 var getId = $(this).data('id');
-                $("body").addClass("loading");
+                $('#pageLoader').show();
                 $.ajax({
                     url: "/admin/unit/edit/"+getId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
-                        $("body").removeClass("loading");
+
                         console.log(res);
                         $("#namee").val(res.name);
                         $('#hidden').val(res.id);
 
-                        if (res.status == 1){
-                            $("#activee").attr('checked', true);
+                        if (res.status === 1){
+                            $("#activee").prop('checked', true);
+
                         }
-                        else{
-                            $("#inactivee").attr('checked', true);
+                       if (res.status === 0){
+                            $("#inactivee").prop('checked', true);
+
                         }
+                        $('#pageLoader').hide();
                     }
                 });
             });
@@ -152,7 +155,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $("body").addClass("loading");
+                        $('#pageLoader').show();
                         $.ajax({
                             url: "/admin/unit/delete/"+getId,
                             type: 'GET',
@@ -160,7 +163,7 @@
                             success: function(res) {
                                 parent.slideUp(300, function () {
                                     parent.closest("tr").remove();
-                                    $("body").removeClass("loading");
+                                    $('#pageLoader').hide();
                                 });
                             }
                         });

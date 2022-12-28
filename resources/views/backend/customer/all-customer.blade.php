@@ -154,8 +154,8 @@
                         <div class="form-group row mb-1">
                             <label for="status" class="col-form-label col-md-3">Status</label>
                             <div class="col-md-9">
-                                <label>Active<input type="radio" class="form-check-input" id="activee" value="1"  name="statuse"></label>
-                                <label>Inactive<input type="radio" class="form-check-input" id="inactivee" value="0"  name="statuse"></label>
+                                <label>Active<input type="radio" class="form-check-input" id="activee" value="1"  name="status"></label>
+                                <label>Inactive<input type="radio" class="form-check-input" id="inactivee" value="0"  name="status"></label>
                             </div>
                         </div>
 
@@ -178,13 +178,13 @@
         $(document).ready(function(){
             $(".edit").click(function(){
                 var getId = $(this).data('id');
-                $("body").addClass("loading");
+                $('#pageLoader').show();
                 $.ajax({
                     url: "/admin/customer/edit/"+getId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
-                        $("body").removeClass("loading");
+                        $('#pageLoader').hide();
                         console.log(res);
                         $("#namee").val(res.name);
                         $('#phonee').val(res.phone);
@@ -195,10 +195,10 @@
 
 
                         if (res.status == 1){
-                            $("#activee").attr('checked', true);
+                            $("#activee").prop('checked', true);
                         }
                         else{
-                            $("#inactivee").attr('checked', true);
+                            $("#inactivee").prop('checked', true);
                         }
                     }
                 });
@@ -216,7 +216,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $("body").addClass("loading");
+                        $('#pageLoader').show();
                         $.ajax({
                             url: "/admin/customer/delete/"+getId,
                             type: 'GET',
@@ -224,7 +224,7 @@
                             success: function(res) {
                                 parent.slideUp(300, function () {
                                     parent.closest("tr").remove();
-                                    $("body").removeClass("loading");
+                                    $('#pageLoader').hide();
                                 });
                             }
                         });

@@ -176,10 +176,10 @@
                         $('#hidden').val(res.id);
 
                         if (res.status == 1){
-                            $("#activee").attr('checked', true);
+                            $("#activee").prop('checked', true);
                         }
                         else{
-                            $("#inactivee").attr('checked', true);
+                            $("#inactivee").prop('checked', true);
                         }
                     }
                 });
