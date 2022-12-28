@@ -35,4 +35,10 @@ class CustomerController extends Controller
         $customer->delete();
         return response()->json(['massage'=>'Delete success']);
     }
+
+    public function customerUpdate(Request $request)
+    {
+        Customer::customerUpdate($request);
+        return redirect()->back()->with('massage','Update successfully');
+    }
 }

@@ -36,4 +36,28 @@ class Customer extends Model
         $customer->created_by = Auth::user()->id;
         $customer->save();
     }
+
+    public static function customerUpdate($request,$getUpId)
+    {
+        $id = $request->id;
+        $customer = Customer::find($id);
+        if ($request->file('image')){
+            if (file_exists($customer->image)){
+                unlink($customer->image);
+            }
+            self::$imgUrl = self::uploadImg($request->file('image'));
+        }
+        else {
+            self::$imgUrl = $customer->image;
+        }
+        $customer->name = $request->name;
+        $customer->phone = $request->phone;
+        $customer->email = $request->email;
+        $customer->address = $request->address;
+        $customer->status = $request->status;
+        $customer->image = self::$imgUrl;
+        $customer->created_by = Auth::user()->id;
+        $customer->save();
+
+    }
 }
