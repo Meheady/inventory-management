@@ -37,7 +37,7 @@ class Customer extends Model
         $customer->save();
     }
 
-    public static function customerUpdate($request,$getUpId)
+    public static function customerUpdate($request)
     {
         $id = $request->id;
         $customer = Customer::find($id);

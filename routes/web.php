@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\supplier\SupplierController;
 use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\unit\UnitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/customer/update','customerUpdate')->name('customer.update');
             Route::get('/customer/edit/{id}','customerEdit');
             Route::get('/customer/delete/{id}','customerDelete');
+        });
+    });
+    Route::controller(UnitController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/unit/all','unitAll')->name('unit.all');
+            Route::post('/unit/store','unitStore')->name('unit.store');
+            Route::post('/unit/update','unitUpdate')->name('unit.update');
+            Route::get('/unit/edit/{id}','unitEdit');
+            Route::get('/unit/delete/{id}','unitDelete');
         });
     });
 });
