@@ -41,6 +41,15 @@
                         <li><a href="{{ route('unit.all') }}">All Unit</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-menu-fill"></i>
+                        <span>Manage Category</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('category.all') }}">All Category</a></li>
+                    </ul>
+                </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

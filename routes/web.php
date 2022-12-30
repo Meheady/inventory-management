@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\supplier\SupplierController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\unit\UnitController;
+use App\Http\Controllers\category\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +60,14 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/unit/update','unitUpdate')->name('unit.update');
             Route::get('/unit/edit/{id}','unitEdit');
             Route::get('/unit/delete/{id}','unitDelete');
+        });
+    });
+    Route::controller(CategoryController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/category/all','categoryAll')->name('category.all');
+            Route::post('/category/store','categoryStore')->name('category.store');
+            Route::post('/category/update/','categoryUpdate')->name('category.update');
+            Route::get('/category/edit/{id}','categoryEdit');
         });
     });
 });
