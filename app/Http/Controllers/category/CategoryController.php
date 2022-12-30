@@ -16,6 +16,10 @@ class CategoryController extends Controller
 
     public function categoryStore(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
         Category::categoryStore($request);
         return redirect()->back()->with('massage','Save successfully');
     }
@@ -24,5 +28,22 @@ class CategoryController extends Controller
     {
         $data = Category::find($id);
         return response()->json($data);
+    }
+
+    public function categoryDelete($id)
+    {
+        $data = Category::find($id);
+        $data->delete();
+        return response()->json(['massage'=>'Delete success']);
+    }
+
+    public function categoryUpdate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+        Category::categoryUpdate($request);
+        return redirect()->back()->with('massage','Update successfully');
     }
 }

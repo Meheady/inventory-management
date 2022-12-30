@@ -53,18 +53,21 @@
                             <label class="col-form-label col-md-3">Category Name</label>
                             <div class="col-md-9">
                                 <input type="text" name="name" class="form-control">
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
                             <label class="col-form-label col-md-3">Status</label>
                             <div class="col-md-9">
                                 <label>Active<input type="radio" name="status" value="1"></label>
-                                <label>Inactive<input type="radio" name="status" value="0"></label>
+                                <label>Inactive<input type="radio" name="status" value="0"></label> <br>
+                                <span class="text-danger">{{ $errors->first('status') }}</span>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
                             <label class="col-form-label col-md-3"></label>
                             <div class="col-md-9">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 <button type="submit" name="save" class="btn btn-success btn-block">Save</button>
                             </div>
                         </div>
@@ -80,6 +83,7 @@
                     <h5 class="modal-title" id="editCategory">Update Category</h5>
                 </div>
                 <div class="modal-body">
+
                     <form action="{{ route('category.update') }}" method="post">
                         @csrf
                         <input type="hidden" name="upid" id="upid">
@@ -87,18 +91,21 @@
                             <label class="col-form-label col-md-3">Category Name</label>
                             <div class="col-md-9">
                                 <input type="text" name="name" id="name" class="form-control">
+                               <span class="text-danger">{{ $errors->first('name') }}</span>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
                             <label class="col-form-label col-md-3">Status</label>
                             <div class="col-md-9">
                                 <label>Active<input type="radio" id="active" name="status" value="1"></label>
-                                <label>Inactive<input type="radio" id="inactive" name="status" value="0"></label>
+                                <label>Inactive<input type="radio" id="inactive" name="status" value="0"></label> <br>
+                                <span class="text-danger">{{ $errors->first('status') }}</span>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
                             <label class="col-form-label col-md-3"></label>
                             <div class="col-md-9">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 <button type="submit" name="update" class="btn btn-success btn-block">Update</button>
                             </div>
                         </div>
@@ -132,6 +139,33 @@
                     }
                 });
             })
+            $('.delete').click(function () {
+                var id = $(this).data('id');
+                var parent = $(this).parent();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#pageLoader').show();
+                        $.ajax({
+                            url: "/admin/category/delete/"+id,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(res) {
+                                    parent.closest("tr").remove();
+                                    $('#pageLoader').hide();
+                            }
+                        });
+                    }
+                })
+            })
         });
     </script>
+
 @endsection

@@ -19,4 +19,14 @@ class Category extends Model
         $category->created_by = Auth::user()->id;
         $category->save();
     }
+
+    public static function categoryUpdate($request)
+    {
+        $id = $request->upid;
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->status = $request->status;
+        $category->updated_by = Auth::user()->id;
+        $category->save();
+    }
 }
