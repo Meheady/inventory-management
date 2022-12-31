@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" data-toggle="modal" data-target="#addProduct" class="btn btn-success">Add Product</button>
+                            <button type="button" data-toggle="modal" data-target="#addProduct" class="btn btn-success add">Add Product</button>
                             <br><br>
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
@@ -15,7 +15,6 @@
                                     <th>Supplier Name</th>
                                     <th>Unit</th>
                                     <th>Category</th>
-                                    <th>Qty</th>
                                     <th>Product Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -26,11 +25,10 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$item->supplier_id}}</td>
-                                        <td>{{$item->unit_id}}</td>
-                                        <td>{{$item->category_id}}</td>
-                                        <td>{{$item->quantity}}</td>
-                                        <td>{{$item->product}}</td>
+                                        <td>{{$item->supplier->name}}</td>
+                                        <td>{{$item->unit->name}}</td>
+                                        <td>{{$item->category->name}}</td>
+                                        <td>{{$item->name}}</td>
                                         <td>{{$item->status == 1 ?'Active':'Inactive'}}</td>
                                         <td>
                                             <button data-toggle="modal" class="btn btn-success edit" data-id="{{ $item->id }}" data-target="#editProduct">Edit</button>
@@ -52,12 +50,36 @@
     <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header p-2">
-                    <h5 class="modal-title text-center" id="addProduct">Add Customer</h5>
+                <div class="modal-header p-2 text-center">
+                    <h5 class="modal-title text-center" id="addProduct">Add Product</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('customer.store') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('product.store') }}">
                         @csrf
+                        <div class="form-group row mb-1">
+                            <label class="col-md-3 col-form-label">Select</label>
+                            <div class="col-md-9">
+                                <select class="form-select addsupplier" name="addsupplier">
+                                    <option value="" selected>Select Supplier</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-md-3 col-form-label">Select</label>
+                            <div class="col-md-9">
+                                <select class="form-select addcategory" name="addcategory">
+                                    <option value="" selected>Select Category</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-md-3 col-form-label">Select</label>
+                            <div class="col-md-9">
+                                <select class="form-select addunit" name="addunit">
+                                    <option value="" selected>Select Unit</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row mb-1">
                             <label for="name" class="col-form-label col-md-3">Name</label>
                             <div class="col-md-9">
@@ -65,27 +87,60 @@
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label for="name" class="col-form-label col-md-3">Image</label>
+                            <label for="status" class="col-form-label col-md-3">Status</label>
                             <div class="col-md-9">
-                                <input type="file" class="form-control" name="image">
+                                <label>Active<input type="radio" class="form-check-input" value="1"  name="status"></label>
+                                <label>Inactive<input type="radio" class="form-check-input" value="0"  name="status"></label>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" name="save" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-2">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">Update Product</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('product.update') }}">
+                        @csrf
+                        <div class="form-group row mb-1">
+                            <label class="col-md-3 col-form-label">Select</label>
+                            <div class="col-md-9">
+                                <select class="form-select editsupplier" name="editsupplier">
+                                    <option value="" selected disabled>Select Supplier</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label for="phone" class="col-form-label col-md-3">Phone</label>
+                            <label class="col-md-3 col-form-label">Select</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="phone">
+                                <select class="form-select editcategory" name="editcategory">
+                                    <option value="" selected disabled>Select Category</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label for="email" class="col-form-label col-md-3">Email</label>
+                            <label class="col-md-3 col-form-label">Select</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="email">
+                                <select class="form-select editunit" name="editunit">
+                                    <option value="" selected disabled>Select Unit</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label for="address" class="col-form-label col-md-3">Address</label>
+                            <label for="name" class="col-form-label col-md-3">Name</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="address">
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                         </div>
                         <div class="form-group row mb-1">
@@ -100,67 +155,6 @@
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             <button type="submit" name="save" class="btn btn-primary">Save</button>
                         </div>
-
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="editcustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header p-2">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Update Supplier</h5>
-                </div>
-                <div class="modal-body">
-                    <form class="editcustomer" method="post" action="{{ route('customer.update') }}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" class="form-control" id="hidden" name="id">
-                        <div class="form-group row mb-1">
-                            <label for="name" class="col-form-label col-md-3">Name</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="namee" name="name">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-1">
-                            <label for="name" class="col-form-label col-md-3">Image</label>
-                            <div class="col-md-9">
-                                <input type="file" class="form-control" id="imagee" name="image">
-                                <img src="" id="viewImg" alt="Customer_image" width="40px" height="40px">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-1">
-                            <label for="phone" class="col-form-label col-md-3">Phone</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="phonee" name="phone">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-1">
-                            <label for="email" class="col-form-label col-md-3">Email</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="emaile" name="email">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-1">
-                            <label for="address" class="col-form-label col-md-3">Address</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="addresse" name="address">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-1">
-                            <label for="status" class="col-form-label col-md-3">Status</label>
-                            <div class="col-md-9">
-                                <label>Active<input type="radio" class="form-check-input" id="activee" value="1"  name="status"></label>
-                                <label>Inactive<input type="radio" class="form-check-input" id="inactivee" value="0"  name="status"></label>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" name="save" class="btn btn-primary">Save</button>
-                        </div>
-
                     </form>
                 </div>
 
@@ -173,29 +167,76 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $('.add').click(function () {
+                $('#pageLoader').show();
+                $.ajax({
+                    url:'/admin/product/add',
+                    type:'GET',
+                    dataType:'json',
+                    success: function (res) {
+                        $('#pageLoader').hide();
+                        $.each(res.supplier, function(key, value) {
+                           $('select[name="addsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                        $.each(res.category, function(key, value) {
+                           $('select[name="addcategory"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                        $.each(res.unit, function(key, value) {
+                           $('select[name="addunit"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
+            })
+
             $(".edit").click(function(){
                 var getId = $(this).data('id');
                 $('#pageLoader').show();
                 $.ajax({
-                    url: "/admin/customer/edit/"+getId,
+                    url: "/admin/product/edit/"+getId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         $('#pageLoader').hide();
                         console.log(res);
-                        $("#namee").val(res.name);
-                        $('#phonee').val(res.phone);
-                        $('#addresse').val(res.address);
-                        $('#emaile').val(res.email);
-                        $('#hidden').val(res.id);
-                        $('#viewImg').attr('src',"/"+res.image);
+                        $("#name").val(res.id.name);
 
+                        $.each(res.supplier, function(key, value) {
 
-                        if (res.status == 1){
-                            $("#activee").prop('checked', true);
+                            if (value.id == res.id.supplier_id){
+                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                            }
+                            else{
+                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                            }
+                        });
+                        $.each(res.category, function(key, value) {
+
+                            if (value.id == res.id.category_id){
+                                $('select[name="editcategory"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                            }
+                            else{
+                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                            }
+                        });
+                        $.each(res.unit, function(key, value) {
+
+                            if (value.id == res.id.unit_id){
+                                $('select[name="editunit"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                            }
+                            else{
+                                $('select[name="editunit"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                            }
+                        });
+
+                        if (res.id.status == 1){
+                            $("#active").prop('checked', true);
                         }
                         else{
-                            $("#inactivee").prop('checked', true);
+                            $("#inactive").prop('checked', true);
                         }
                     }
                 });
