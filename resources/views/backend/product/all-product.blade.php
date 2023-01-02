@@ -6,16 +6,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" data-toggle="modal" data-target="#addProduct" class="btn btn-success add">Add Product</button>
+                            <button type="button" data-toggle="modal" data-target="#addProduct}" class="btn btn-success">Add Product</button>
                             <br><br>
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>Supplier Name</th>
-                                    <th>Unit</th>
+                                    <th>Supplier</th>
                                     <th>Category</th>
-                                    <th>Product Name</th>
+                                    <th>Unit</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -25,9 +26,9 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$item->supplier ? $item->supplier->name:''}}</td>
-                                        <td>{{$item->unit ? $item->unit->name:''}}</td>
-                                        <td>{{$item->category?$item->category->name:''}}</td>
+                                        <td>{{ $item->supplier? $item->supplier->name:'' }}</td>
+                                        <td>{{ $item->category? $item->category->name:'' }}</td>
+                                        <td>{{ $item->unit? $item->unit->name:'' }}</td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->status == 1 ?'Active':'Inactive'}}</td>
                                         <td>
@@ -44,7 +45,6 @@
             </div>
         </div>
     </div>
-
     <!-- supplier modal -->
 
     <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -287,10 +287,6 @@
                 })
 
             });
-        });
-
-        $('#addProduct').on('hidden.bs.modal', function(e){
-            $(this).removeData('bs.modal');
         });
     </script>
 @endsection
