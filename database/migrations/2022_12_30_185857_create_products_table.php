@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->integer('unit_id');
             $table->integer('category_id');
             $table->string('name')->nullable();
-            $table->double('quantity')->default(0);
-            $table->string('status')->nullable();
+            $table->double('quantity')->default('0');
+            $table->tinyInteger('status')->default('1');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

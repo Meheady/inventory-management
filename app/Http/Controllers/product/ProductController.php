@@ -40,4 +40,17 @@ class ProductController extends Controller
 
         return response()->json(['supplier'=>$supplier,'category'=>$category,'unit'=>$unit,'id'=>$data]);
     }
+
+    public function productUpdate(Request $request)
+    {
+        Product::productUpdate($request);
+        return redirect()->back()->with('massage',' Update successfully');
+    }
+
+    public function productDelete($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return response()->json(['massage'=>'Delete successfully']);
+    }
 }

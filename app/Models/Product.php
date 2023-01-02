@@ -24,6 +24,20 @@ class Product extends Model
         $product->save();
     }
 
+    public static function productUpdate($request)
+    {
+        $id = $request->upid;
+        $product = Product::find($id);
+        $product->supplier_id = $request->editsupplier;
+        $product->category_id = $request->editcategory;
+        $product->unit_id = $request->editunit;
+        $product->name = $request->name;
+        $product->quantity = '0';
+        $product->status = $request->status;
+        $product->updated_by = Auth::user()->id;
+        $product->save();
+    }
+
 
     public function supplier()
     {

@@ -25,9 +25,9 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$item->supplier->name}}</td>
-                                        <td>{{$item->unit->name}}</td>
-                                        <td>{{$item->category->name}}</td>
+                                        <td>{{$item->supplier ? $item->supplier->name:''}}</td>
+                                        <td>{{$item->unit ? $item->unit->name:''}}</td>
+                                        <td>{{$item->category?$item->category->name:''}}</td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->status == 1 ?'Active':'Inactive'}}</td>
                                         <td>
@@ -113,6 +113,7 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route('product.update') }}">
                         @csrf
+                        <input type="hidden" name="upid" id="upid">
                         <div class="form-group row mb-1">
                             <label class="col-md-3 col-form-label">Select</label>
                             <div class="col-md-9">
@@ -203,6 +204,7 @@
                         $('#pageLoader').hide();
                         console.log(res);
                         $("#name").val(res.id.name);
+                        $("#upid").val(res.id.id);
 
                         $.each(res.supplier, function(key, value) {
 
@@ -256,7 +258,7 @@
                     if (result.isConfirmed) {
                         $('#pageLoader').show();
                         $.ajax({
-                            url: "/admin/customer/delete/"+getId,
+                            url: "/admin/product/delete/"+getId,
                             type: 'GET',
                             dataType: 'json',
                             success: function(res) {
