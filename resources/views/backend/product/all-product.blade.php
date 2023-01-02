@@ -54,10 +54,10 @@
                     <h5 class="modal-title text-center" id="addProduct">Add Product</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('product.store') }}">
+                    <form method="post" id="addform" action="{{ route('product.store') }}">
                         @csrf
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Supplier</label>
                             <div class="col-md-9">
                                 <select class="form-select addsupplier" name="addsupplier">
                                     <option value="" selected>Select Supplier</option>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Category</label>
                             <div class="col-md-9">
                                 <select class="form-select addcategory" name="addcategory">
                                     <option value="" selected>Select Category</option>
@@ -73,10 +73,10 @@
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Unit</label>
                             <div class="col-md-9">
                                 <select class="form-select addunit" name="addunit">
-                                    <option value="" selected>Select Unit</option>
+
                                 </select>
                             </div>
                         </div>
@@ -111,11 +111,11 @@
                     <h5 class="modal-title text-center" id="exampleModalLabel">Update Product</h5>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('product.update') }}">
+                    <form method="post" id="editform" action="{{ route('product.update') }}">
                         @csrf
                         <input type="hidden" name="upid" id="upid">
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Supplier</label>
                             <div class="col-md-9">
                                 <select class="form-select editsupplier" name="editsupplier">
                                     <option value="" selected disabled>Select Supplier</option>
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Category</label>
                             <div class="col-md-9">
                                 <select class="form-select editcategory" name="editcategory">
                                     <option value="" selected disabled>Select Category</option>
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-1">
-                            <label class="col-md-3 col-form-label">Select</label>
+                            <label class="col-md-3 col-form-label">Unit</label>
                             <div class="col-md-9">
                                 <select class="form-select editunit" name="editunit">
                                     <option value="" selected disabled>Select Unit</option>
@@ -176,6 +176,15 @@
                     type:'GET',
                     dataType:'json',
                     success: function (res) {
+                        $('select[name="addsupplier"]').html('');
+                        $('select[name="addunit"]').html('');
+                        $('select[name="addcategory"]').html('');
+
+                        $('select[name="addsupplier"]').html('<option value="" selected>Select Supplier</option>');
+                        $('select[name="addunit"]').html('<option value="" selected>Select Unit</option>');
+                        $('select[name="addcategory"]').html('<option value="" selected>Select Category</option>');
+
+
                         $('#pageLoader').hide();
                         $.each(res.supplier, function(key, value) {
                            $('select[name="addsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
@@ -202,44 +211,50 @@
                     dataType: 'json',
                     success: function(res) {
                         $('#pageLoader').hide();
+                        $('select[name="editsupplier"]').html('');
+                        $('select[name="editcategory"]').html('');
+                        $('select[name="editunit"]').html('');
                         console.log(res);
-                        $("#name").val(res.id.name);
-                        $("#upid").val(res.id.id);
+                        if(res){
+                            $("#name").val(res.id.name);
+                            $("#upid").val(res.id.id);
 
-                        $.each(res.supplier, function(key, value) {
+                            $.each(res.supplier, function(key, value) {
 
-                            if (value.id == res.id.supplier_id){
-                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                                if (value.id == res.id.supplier_id){
+                                    $('select[name="editsupplier"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                                }
+                                else{
+                                    $('select[name="editsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                                }
+                            });
+                            $.each(res.category, function(key, value) {
+
+                                if (value.id == res.id.category_id){
+                                    $('select[name="editcategory"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                                }
+                                else{
+                                    $('select[name="editcategory"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                                }
+                            });
+                            $.each(res.unit, function(key, value) {
+
+                                if (value.id == res.id.unit_id){
+                                    $('select[name="editunit"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                                }
+                                else{
+                                    $('select[name="editunit"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                                }
+                            });
+
+                            if (res.id.status == 1){
+                                $("#active").prop('checked', true);
                             }
                             else{
-                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                                $("#inactive").prop('checked', true);
                             }
-                        });
-                        $.each(res.category, function(key, value) {
-
-                            if (value.id == res.id.category_id){
-                                $('select[name="editcategory"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
-                            }
-                            else{
-                                $('select[name="editsupplier"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
-                            }
-                        });
-                        $.each(res.unit, function(key, value) {
-
-                            if (value.id == res.id.unit_id){
-                                $('select[name="editunit"]').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
-                            }
-                            else{
-                                $('select[name="editunit"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
-                            }
-                        });
-
-                        if (res.id.status == 1){
-                            $("#active").prop('checked', true);
                         }
-                        else{
-                            $("#inactive").prop('checked', true);
-                        }
+
                     }
                 });
             });
@@ -272,6 +287,10 @@
                 })
 
             });
+        });
+
+        $('#addProduct').on('hidden.bs.modal', function(e){
+            $(this).removeData('bs.modal');
         });
     </script>
 @endsection
