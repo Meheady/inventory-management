@@ -65,7 +65,7 @@
                         <span>Manage Purchase</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('product.all') }}">All Purchase</a></li>
+                        <li><a href="{{ route('purchase.all') }}">All Purchase</a></li>
                     </ul>
                 </li>
 

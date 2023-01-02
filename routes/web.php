@@ -7,6 +7,7 @@ use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\unit\UnitController;
 use App\Http\Controllers\category\CategoryController;
 use App\Http\Controllers\product\ProductController;
+use App\Http\Controllers\purchase\PurchaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,6 +76,16 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(ProductController::class)->group(function (){
         Route::prefix('admin')->group(function (){
             Route::get('/product/all','productAll')->name('product.all');
+            Route::get('/product/add','productAdd');
+            Route::post('/product/store','productStore')->name('product.store');
+            Route::post('/product/update/','productUpdate')->name('product.update');
+            Route::get('/product/edit/{id}','productEdit');
+            Route::get('/product/delete/{id}','productDelete');
+        });
+    });
+    Route::controller(PurchaseController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/purchase/all','purchaseAll')->name('purchase.all');
             Route::get('/product/add','productAdd');
             Route::post('/product/store','productStore')->name('product.store');
             Route::post('/product/update/','productUpdate')->name('product.update');
