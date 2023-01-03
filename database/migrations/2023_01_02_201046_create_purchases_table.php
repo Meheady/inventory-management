@@ -24,9 +24,9 @@ class CreatePurchasesTable extends Migration
             $table->double('buying_qty');
             $table->double('unit_price');
             $table->double('buying_price');
-            $table->tinyInteger('status')->default('1');
+            $table->tinyInteger('status')->default('0');
             $table->integer('created_by')->nullable();
-            $table->integer('updated')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }
