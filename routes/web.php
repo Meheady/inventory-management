@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(PurchaseController::class)->group(function (){
         Route::prefix('admin')->group(function (){
             Route::get('/purchase/all','purchaseAll')->name('purchase.all');
-            Route::get('/product/add','productAdd');
+            Route::get('/purchase/add','purchaseNew')->name('purchase.add');
             Route::post('/product/store','productStore')->name('product.store');
             Route::post('/product/update/','productUpdate')->name('product.update');
             Route::get('/product/edit/{id}','productEdit');

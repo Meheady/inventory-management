@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" data-toggle="modal" data-target="#addPurchase}" class="btn btn-success">New Purchase</button>
+                            <a href="{{ route('purchase.add') }}" class="btn btn-success">New Purchase</a>
                             <br><br>
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
@@ -49,4 +49,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection
