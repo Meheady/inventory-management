@@ -71,6 +71,41 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card-body">
+                            <form action="">
+                                @csrf
+                                <table class="table-md table-bordered" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Product Name</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Description</th>
+                                        <th>Total Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tbody id="addRow" class="addRow">
+
+                                    </tbody>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td>
+                                            <input type="text" name="est_amount" value="0" id="est_amount" class="form-control est_amount" readonly>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                    </thead>
+                                </table>
+                                <br>
+                                <div class="form-group">
+                                    <button class="btn btn-info" id="storePurchase">Purchase Now</button>
+                                </div>
+                            </form>
+                        </div>
                         </div>
                     </div>
                 </div>
