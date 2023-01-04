@@ -24,7 +24,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label col-md-4">Purchase No</label>
                                         <div class="col-md-8">
-                                            <input type="text"  class="form-control" name="purchase_no">
+                                            <input type="text"  class="form-control" id="purchaseNo" name="purchase_no">
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label col-md-1"></label>
                                         <div class="col-md-11">
-                                            <button type="submit" class="btn btn-info">Add More</button>
+                                            <button type="submit" class="btn btn-info addEvent">Add More</button>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                     <tr>
                                         <th>Category</th>
                                         <th>Product Name</th>
-                                        <th>Unit</th>
+                                        <th>PSC/BOX/KG</th>
                                         <th>Unit Price</th>
                                         <th>Description</th>
                                         <th>Total Price</th>
@@ -113,12 +113,106 @@
         </div>
     </div>
 
-
 @endsection
 
+
 @section('script')
+    <script id="template" type="text/x-handlebars-template">
+
+        <tr class="delete_add_more" id="delete_add_more">
+            <input type="hidden" name="date[]" value="@{{date}}">
+            <input type="hidden" name="purchase_no[]" value="@{{purchase_no}}">
+            <input type="hidden" name="sipplier_id[]" value="@{{sipplier_id}}">
+
+            <td>
+                <input type="hidden" name="category_id[]" value="@{{category_name}}">
+                @{{category_name}}
+            </td>
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{product_name}}">
+                @{{product_name}}
+            </td>
+            <td>
+                <input type="number" value="" class="form-control buy_qty text-right" name="buy_qty[]">
+            </td>
+            <td>
+                <input type="number" value="" class="form-control unit_price text-right" name="unit_price[]">
+            </td>
+            <td>
+                <input type="text" value="" class="form-control description text-right" name="description[]">
+            </td>
+            <td>
+                <input type="number" value="0" readonly class="form-control buying_price text-right" name="buying_price[]">
+            </td>
+            <td>
+                <button  class="btn btn-danger removeEvent">Del</button>
+            </td>
+        </tr>
+    </script>
+
     <script type="text/javascript">
+
         $(document).ready(function () {
+
+
+            $('.addEvent').click(function(){
+
+                const date= $('#date').val();
+                const purchase_no= $('#purchaseNo').val();
+                const supplier_id= $('#supplier').val();
+                const category_id= $('#category').val();
+                const category_name= $('#category').find('option:selected').text();
+                const product_id= $('#product').val();
+                const product_name= $('#product').find('option:selected').text();
+
+                if (!date ||!purchase_no ||!supplier_id ||!category_id ||!category_name ||!product_id ||!product_name){
+                    $.notify("All field are required",{globalPosition:'top right',class:'error'});
+                    return false;
+                }
+                const source = $("#template").html();
+                const template = Handlebars.compile(source);
+
+                const data ={
+                    date:date,
+                    purchase_no:purchase_no,
+                    sipplier_id:supplier_id,
+                    category_id:category_id,
+                    category_name:category_name,
+                    product_id:product_id,
+                    product_name:product_name
+                }
+                const html = template(data);
+                $("#addRow").append(html);
+
+            })
+
+            $('.removeEvent').click(function(event){
+                alert('dfd')
+                $(this).closest('.delete_add_more').remove();
+            });
+
+            $(document).on('keyup click','.buy_qty,.unit_price',function () {
+                const unitPrice = $(this).closest('tr').find('input.unit_price').val();
+                const qty = $(this).closest('tr').find('input.buy_qty').val();
+                const total = unitPrice * qty;
+                $(this).closest('tr').find('input.buying_price').val(total);
+                totalPrice();
+            })
+
+
+            const totalPrice = () => {
+              let sum = 0;
+              $('.buying_price').each(function () {
+                  const value = $(this).val();
+                  if (!isNaN(value) && value.length != 0){
+                      sum += parseFloat(value);
+                  }
+              })
+
+                $("#est_amount").val(sum);
+            }
+
+
             $('#supplier').change(function () {
                 var id = $(this).val();
 

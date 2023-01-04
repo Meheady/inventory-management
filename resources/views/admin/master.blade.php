@@ -112,6 +112,8 @@
 <!-- App js -->
 <script src="{{asset('/admin')}}/assets/js/app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="{{asset('/admin')}}/assets/js/pages/handlebars.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
 @if(Session::has('massage'))
     <script>
