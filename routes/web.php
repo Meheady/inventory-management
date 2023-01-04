@@ -8,6 +8,7 @@ use App\Http\Controllers\unit\UnitController;
 use App\Http\Controllers\category\CategoryController;
 use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\purchase\PurchaseController;
+use App\Http\Controllers\ajax\AjaxController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,6 +92,11 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/product/update/','productUpdate')->name('product.update');
             Route::get('/product/edit/{id}','productEdit');
             Route::get('/product/delete/{id}','productDelete');
+        });
+    });
+    Route::controller(AjaxController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/get-category','getCategory')->name('get-category');
         });
     });
 });

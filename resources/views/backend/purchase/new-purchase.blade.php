@@ -34,6 +34,9 @@
                                         <div class="col-md-8">
                                             <select class="form-select" name="supplier" id="supplier">
                                                 <option value="" selected disable>---Select Supplier---</option>
+                                                @foreach($supplier as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -76,4 +79,33 @@
     </div>
 
 
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#supplier').change(function () {
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "{{route('get-category')}}",
+                    type:"GET",
+                    dataType:"json",
+                    data:{
+                        id:id,
+                    },
+                    success:function (res) {
+                        var html = '<option value="" selected disable>---Select Category---</option>'
+                       $.each(res,function (key,v) {
+                           html += '<option value="'+ v.category_id +'">'+ v.category.name +'</option>'
+                       })
+                        $('#category').html(html);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
+            })
+        })
+    </script>
 @endsection

@@ -22,7 +22,7 @@ class PurchaseController extends Controller
         $category = Category::all();
         $product = Product::all();
 
-        return view('backend.purchase.new-purchase',['suppliers'=>$supplier,'category'=>$category,'product'=>$product]);
+        return view('backend.purchase.new-purchase',['supplier'=>$supplier,'category'=>$category,'product'=>$product]);
 
     }
 }
