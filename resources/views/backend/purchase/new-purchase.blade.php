@@ -106,6 +106,28 @@
                     }
                 })
             })
+            $('#category').change(function () {
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "{{route('get-product')}}",
+                    type:"GET",
+                    dataType:"json",
+                    data:{
+                        id:id,
+                    },
+                    success:function (res) {
+                        var html = '<option value="" selected disable>---Select Product---</option>'
+                       $.each(res,function (key,v) {
+                           html += '<option value="'+ v.id +'">'+ v.name +'</option>'
+                       })
+                        $('#product').html(html);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
+            })
         })
     </script>
 @endsection

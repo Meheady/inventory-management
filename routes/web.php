@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(AjaxController::class)->group(function (){
         Route::prefix('admin')->group(function (){
             Route::get('/get-category','getCategory')->name('get-category');
+            Route::get('/get-product','getproduct')->name('get-product');
         });
     });
 });

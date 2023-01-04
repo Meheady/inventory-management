@@ -14,4 +14,11 @@ class AjaxController extends Controller
         $category = Product::with(['category'])->select('category_id')->where('supplier_id',$s_id)->groupBy('category_id')->get();
        return response()->json($category);
     }
+
+    public function getproduct(Request $request)
+    {
+        $c_id = $request->id;
+        $product = Product::where('category_id',$c_id)->get();
+        return response()->json($product);
+    }
 }
