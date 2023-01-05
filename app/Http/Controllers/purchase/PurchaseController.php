@@ -21,8 +21,17 @@ class PurchaseController extends Controller
         $supplier = Supplier::all();
         $category = Category::all();
         $product = Product::all();
-
         return view('backend.purchase.new-purchase',['supplier'=>$supplier,'category'=>$category,'product'=>$product]);
+    }
+
+    public function purchaseStore(Request $request)
+    {
+        if ($request->category_id == null){
+            return redirect()->back()->with('error','Sorry! You do not select any category.');
+        }else{
+            Purchase::purchaseStore($request);
+            return redirect()->route('purchase.all')->with('massage','Purchase Successfully Complete');
+        }
 
     }
 }

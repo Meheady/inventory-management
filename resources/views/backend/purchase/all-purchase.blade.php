@@ -28,7 +28,7 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $loop->purchase_no }}</td>
+                                        <td>{{ $item->purchase_no }}</td>
                                         <td>{{ $item->supplier? $item->supplier->name:'' }}</td>
                                         <td>{{ $item->category? $item->category->name:'' }}</td>
                                         <td>{{ $item->date }}</td>
@@ -36,7 +36,6 @@
                                         <td>{{$item->product?$item->product->name:''}}</td>
                                         <td>{{$item->status == 1 ?'Approve':'Pending'}}</td>
                                         <td>
-                                            <button data-toggle="modal" class="btn btn-success edit" data-id="{{ $item->id }}" data-target="#editPurchase">Edit</button>
                                             <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
                                         </td>
                                     </tr>

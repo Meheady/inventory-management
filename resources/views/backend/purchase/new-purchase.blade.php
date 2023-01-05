@@ -122,14 +122,14 @@
         <tr class="delete_add_more" id="delete_add_more">
             <input type="hidden" name="date[]" value="@{{date}}">
             <input type="hidden" name="purchase_no[]" value="@{{purchase_no}}">
-            <input type="hidden" name="sipplier_id[]" value="@{{sipplier_id}}">
+            <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">
 
             <td>
-                <input type="hidden" name="category_id[]" value="@{{category_name}}">
+                <input type="hidden" name="category_id[]" value="@{{category_id}}">
                 @{{category_name}}
             </td>
             <td>
-                <input type="hidden" name="product_id[]" value="@{{product_name}}">
+                <input type="hidden" name="product_id[]" value="@{{product_id}}">
                 @{{product_name}}
             </td>
             <td>
@@ -175,7 +175,7 @@
                 const data ={
                     date:date,
                     purchase_no:purchase_no,
-                    sipplier_id:supplier_id,
+                    supplier_id:supplier_id,
                     category_id:category_id,
                     category_name:category_name,
                     product_id:product_id,

@@ -118,7 +118,8 @@
 @if(Session::has('massage'))
     <script>
         $(document).ready(function(){
-            toastr.success('{{Session::get('massage')}}')
+            toastr.success('{{Session::get('massage')}}');
+            toastr.error('{{Session::get('error')}}');
         });
     </script>
 @endif
