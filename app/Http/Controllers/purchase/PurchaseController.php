@@ -34,4 +34,16 @@ class PurchaseController extends Controller
         }
 
     }
+    public function purchaseDelete($id)
+    {
+        $purchase = Purchase::find($id);
+        $purchase->delete();
+        return response()->json($purchase);
+    }
+
+    public function purchaseApprove()
+    {
+        $allData = Purchase::where('status',0)->orderBy('id','desc')->orderBy('date','desc')->get();
+        return view('backend.purchase.approve-purchase',['allData'=>$allData]);
+    }
 }

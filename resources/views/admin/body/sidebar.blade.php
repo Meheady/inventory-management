@@ -70,6 +70,9 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('purchase.add') }}">New Purchase</a></li>
                     </ul>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('purchase.approve') }}">Approval Purchase</a></li>
+                    </ul>
                 </li>
 
                 <li>

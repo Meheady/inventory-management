@@ -36,14 +36,14 @@
                                         <td>{{$item->product?$item->product->name:''}}</td>
                                         <td>
                                             @if($item->status == 1)
-                                            <button class="btn btn-success approve" >Approve</button>
+                                                <button class="btn btn-success approve" >Approve</button>
                                             @else
-                                            <button class="btn btn-danger pending">Pending</button>
+                                                <button class="btn btn-danger pending">Pending</button>
                                             @endif
                                         </td>
                                         <td>
                                             @if($item->status == 0)
-                                            <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
+                                                <button id="Approve"  data-id="{{ $item->id }}" class="btn btn-danger Approve">Del</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -63,12 +63,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $(document).on('click','.delete',function(event){
+            $(document).on('click','#approve',function(event){
                 var getId = $(this).data('id');
                 var parent = $(this).parent();
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "Delete This Data?",
+                    text: "Approve This Data?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

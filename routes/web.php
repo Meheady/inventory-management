@@ -89,9 +89,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/purchase/all','purchaseAll')->name('purchase.all');
             Route::get('/purchase/add','purchaseNew')->name('purchase.add');
             Route::post('/purchase/store','purchaseStore')->name('purchase.store');
-            Route::post('/product/update/','productUpdate')->name('product.update');
-            Route::get('/product/edit/{id}','productEdit');
-            Route::get('/product/delete/{id}','productDelete');
+            Route::get('/purchase/approve','purchaseApprove')->name('purchase.approve');
+            Route::get('/purchase/pending','purchasePending')->name('purchase.pending');
+            Route::get('/purchase/delete/{id}','purchaseDelete');
         });
     });
     Route::controller(AjaxController::class)->group(function (){
