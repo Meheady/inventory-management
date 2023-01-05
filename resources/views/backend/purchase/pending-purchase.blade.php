@@ -43,7 +43,7 @@
                                         </td>
                                         <td>
                                             @if($item->status == 0)
-                                                <button id="Approve"  data-id="{{ $item->id }}" class="btn btn-danger Approve">Del</button>
+                                                <button id="Approve"  data-id="{{ $item->id }}" class="btn btn-danger approve">Approve</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -63,7 +63,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $(document).on('click','#approve',function(event){
+            $(document).on('click','.approve',function(event){
                 var getId = $(this).data('id');
                 var parent = $(this).parent();
                 Swal.fire({
@@ -78,14 +78,18 @@
                     if (result.isConfirmed) {
                         $('#pageLoader').show();
                         $.ajax({
-                            url: "/admin/purchase/delete/"+getId,
+                            url: "/admin/purchase/approve/"+getId,
                             type: 'GET',
                             dataType: 'json',
                             success: function(res) {
                                 parent.slideUp(300, function () {
                                     parent.closest("tr").remove();
+                                    window.location.href = res.url;
                                     $('#pageLoader').hide();
                                 });
+                            },
+                            error:function(err){
+                                console.log(err);
                             }
                         });
                     }

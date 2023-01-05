@@ -41,9 +41,22 @@ class PurchaseController extends Controller
         return response()->json($purchase);
     }
 
-    public function purchaseApprove()
+    public function purchasePending()
     {
         $allData = Purchase::where('status',0)->orderBy('id','desc')->orderBy('date','desc')->get();
-        return view('backend.purchase.approve-purchase',['allData'=>$allData]);
+        return view('backend.purchase.pending-purchase',['allData'=>$allData]);
+    }
+    public function purchaseApprove($id){
+        $purchase = Purchase::find($id);
+        $product = Product::where('id',$purchase->product_id)->first();
+        $purchase_qty = ((float)($purchase->buying_qty))+((float)($product->quantity));
+        $product->quantity = $purchase_qty;
+        if($product->save()){
+            Purchase::find($id)->update([
+                'status'=>'1',
+            ]);
+
+            return response()->json(['massage'=>'Approve successfully','url'=>'/admin/purchase/all']);
+        }
     }
 }
