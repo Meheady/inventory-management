@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="">
+                            <form action="{{ route('purchase.store') }}" method="post">
                                 @csrf
                                 <table class="table-md table-bordered" width="100%">
                                     <thead>
@@ -145,7 +145,7 @@
                 <input type="number" value="0" readonly class="form-control buying_price text-right" name="buying_price[]">
             </td>
             <td>
-                <button  class="btn btn-danger removeEvent">Del</button>
+                <button type="button" class="btn btn-danger removeEvent">Del</button>
             </td>
         </tr>
     </script>
@@ -166,7 +166,7 @@
                 const product_name= $('#product').find('option:selected').text();
 
                 if (!date ||!purchase_no ||!supplier_id ||!category_id ||!category_name ||!product_id ||!product_name){
-                    $.notify("All field are required",{globalPosition:'top right',class:'error'});
+                    $.notify("All field are required",{globalPosition:'top center',class:'error'});
                     return false;
                 }
                 const source = $("#template").html();
@@ -186,9 +186,9 @@
 
             })
 
-            $('.removeEvent').click(function(event){
-                alert('dfd')
+            $(document).on('click','.removeEvent',function(event){
                 $(this).closest('.delete_add_more').remove();
+                totalPrice();
             });
 
             $(document).on('keyup click','.buy_qty,.unit_price',function () {
@@ -200,7 +200,7 @@
             })
 
 
-            const totalPrice = () => {
+            function totalPrice () {
               let sum = 0;
               $('.buying_price').each(function () {
                   const value = $(this).val();
@@ -209,7 +209,7 @@
                   }
               })
 
-                $("#est_amount").val(sum);
+                $(".est_amount").val(sum);
             }
 
 
