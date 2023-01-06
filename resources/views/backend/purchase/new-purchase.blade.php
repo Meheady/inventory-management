@@ -32,7 +32,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label col-md-4">Supplier Name</label>
                                         <div class="col-md-8">
-                                            <select class="form-select" name="supplier" id="supplier">
+                                            <select class="form-select select2" name="supplier" id="supplier">
                                                 <option value="" selected disable>---Select Supplier---</option>
                                                 @foreach($supplier as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -45,7 +45,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label col-md-4">Category Name</label>
                                         <div class="col-md-8">
-                                            <select class="form-select" name="category" id="category">
+                                            <select class="form-select select2" name="category" id="category">
                                                 <option value="" selected disable>---Select Category---</option>
                                             </select>
                                         </div>
@@ -55,7 +55,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label col-md-4">Product Name</label>
                                         <div class="col-md-8">
-                                            <select class="form-select" name="product" id="product">
+                                            <select class="form-select select2" name="product" id="product">
                                                 <option value="" selected disable>---Select Product---</option>
                                             </select>
                                         </div>

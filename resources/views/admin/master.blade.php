@@ -14,6 +14,7 @@
     <!-- jquery.vectormap css -->
     <link href="{{asset('/admin')}}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
+    <link href="{{asset('/admin')}}/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">
     <!-- DataTables -->
     <link href="{{asset('/admin')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="{{asset('/admin')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -114,11 +115,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{asset('/admin')}}/assets/js/pages/handlebars.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+<script src="{{asset('/admin')}}/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{asset('/admin')}}/assets/js/pages/form-advanced.init.js"></script>
 
 @if(Session::has('massage'))
     <script>
         $(document).ready(function(){
             toastr.success('{{Session::get('massage')}}');
+        });
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        $(document).ready(function(){
             toastr.error('{{Session::get('error')}}');
         });
     </script>
