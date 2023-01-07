@@ -6,9 +6,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('purchase.add') }}" class="btn btn-success">Add Invoice</a>
+                            <a href="{{ route('invoice.add') }}" class="btn btn-success">Add Invoice</a>
                             <br><br>
-                            <div class="card-title">All Invoice</div>
+                            <div class="card-header">
+                                <h4 class="text-center">All Invoice</h4>
+                            </div>
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>

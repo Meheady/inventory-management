@@ -104,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(InvoiceController::class)->group(function (){
         Route::prefix('admin')->group(function (){
             Route::get('/invoice/all','InvoiceAll')->name('invoice.all');
+            Route::get('/invoice/add','InvoiceAdd')->name('invoice.add');
         });
     });
 });
