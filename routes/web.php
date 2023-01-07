@@ -9,6 +9,7 @@ use App\Http\Controllers\category\CategoryController;
 use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\purchase\PurchaseController;
 use App\Http\Controllers\ajax\AjaxController;
+use App\Http\Controllers\invoice\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,6 +99,11 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('admin')->group(function (){
             Route::get('/get-category','getCategory')->name('get-category');
             Route::get('/get-product','getproduct')->name('get-product');
+        });
+    });
+    Route::controller(InvoiceController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/invoice/all','InvoiceAll')->name('invoice.all');
         });
     });
 });
