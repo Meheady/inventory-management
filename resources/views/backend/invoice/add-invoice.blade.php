@@ -12,57 +12,61 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="col-md-2">
-                                <div class="form-group row mb-1">
-                                    <label for="name" class="col-form-label col-md-7">Invoice No</label>
-                                    <div class="col-md-5">
-                                        <input type="text"  class="form-control" id="invoiceNo" name="invoice_no" readonly>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
-
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group row mb-1">
-                                        <label for="name" class="col-form-label col-md-4">Date</label>
-                                        <div class="col-md-8">
+                                        <label for="name" class="col-form-label">Invoice No</label>
+                                        <div class="col-md-12">
+                                            <input type="text"  class="form-control" id="invoiceNo" name="invoice_no" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group row mb-1">
+                                        <label for="name" class="col-form-label">Date</label>
+                                        <div class="col-md-12">
                                             <input type="date" id="date" class="form-control" name="date">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group row mb-1">
-                                        <label for="name" class="col-form-label col-md-4">Category Name</label>
-                                        <div class="col-md-8">
+                                        <label for="name" class="col-form-label">Category Name</label>
+                                        <div class="col-md-12">
                                             <select class="form-select select2" name="category" id="category">
                                                 <option value="" selected disable>---Select Category---</option>
+                                                @foreach($category as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group row mb-1">
-                                        <label for="name" class="col-form-label col-md-4">Product Name</label>
-                                        <div class="col-md-8">
+                                        <label for="name" class="col-form-label">Product Name</label>
+                                        <div class="col-md-12">
                                             <select class="form-select select2" name="product" id="product">
                                                 <option value="" selected disable>---Select Product---</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md">
                                     <div class="form-group row mb-1">
-                                        <label for="name" class="col-form-label col-md-6">Stock(Pics/Box/KG)</label>
-                                        <div class="col-md-6">
+                                        <label for="name" class="col-form-label">Stock</label>
+                                        <div class="col-md-12">
                                             <input type="text"  class="form-control" id="stock" name="stock" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group row mb-1">
-                                        <label for="name" class="col-form-label col-md-1"></label>
-                                        <div class="col-md-11">
+                                        <label for="name" class="col-form-label"></label>
+                                        <div class="col-md-12">
                                             <button type="submit" class="btn btn-info addEvent">Add More</button>
                                         </div>
                                     </div>
@@ -210,29 +214,6 @@
                 $(".est_amount").val(sum);
             }
 
-
-            $('#supplier').change(function () {
-                var id = $(this).val();
-
-                $.ajax({
-                    url: "{{route('get-category')}}",
-                    type:"GET",
-                    dataType:"json",
-                    data:{
-                        id:id,
-                    },
-                    success:function (res) {
-                        var html = '<option value="" selected disable>---Select Category---</option>'
-                        $.each(res,function (key,v) {
-                            html += '<option value="'+ v.category_id +'">'+ v.category.name +'</option>'
-                        })
-                        $('#category').html(html);
-                    },
-                    error:function (err) {
-                        console.log(err);
-                    }
-                })
-            })
             $('#category').change(function () {
                 var id = $(this).val();
 
