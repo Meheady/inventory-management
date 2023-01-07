@@ -24,6 +24,15 @@ class InvoiceController extends Controller
         $supplier = Supplier::all();
         $unit = Unit::all();
         $category = Category::all();
-        return view('backend.invoice.add-invoice',compact('supplier','unit','category'));
+        $invoice_data = Invoice::orderBy('id','desc')->first();
+        if ($invoice_data == null){
+            $inv_no = '0';
+            $invoice_no = $inv_no + 1;
+        }
+        else{
+            $invoiceData = Invoice::orderBy('id','desc')->first()->invoice_no;
+            $invoice_no = $invoiceData+1;
+        }
+        return view('backend.invoice.add-invoice',compact('invoice_no','supplier','unit','category'));
     }
 }

@@ -19,7 +19,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label">Invoice No</label>
                                         <div class="col-md-12">
-                                            <input type="text"  class="form-control" id="invoiceNo" name="invoice_no" readonly>
+                                            <input type="text"  class="form-control" value="{{ $invoice_no }}" id="invoiceNo" name="invoice_no" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -28,7 +28,7 @@
                                     <div class="form-group row mb-1">
                                         <label for="name" class="col-form-label">Date</label>
                                         <div class="col-md-12">
-                                            <input type="date" id="date" class="form-control" name="date">
+                                            <input type="date" id="date" class="form-control" value="{{ date('Y-m-d') }}" name="date">
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                         <label for="name" class="col-form-label">Product Name</label>
                                         <div class="col-md-12">
                                             <select class="form-select select2" name="product" id="product">
-                                                <option value="" selected disable>---Select Product---</option>
+                                                <option value="0" selected disable>---Select Product---</option>
                                             </select>
                                         </div>
                                     </div>
@@ -235,6 +235,23 @@
                         console.log(err);
                     }
                 })
+            })
+
+            $('#product').change(function () {
+
+                var id = $(this).val();
+                $.ajax({
+                    url: "{{route('get-product-stock')}}",
+                    type:"GET",
+                    dataType:"json",
+                    data:{
+                        id:id,
+                    },
+                    success: function (res) {
+                        $('#stock').val(res);
+                    }
+                })
+
             })
         })
     </script>

@@ -99,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('admin')->group(function (){
             Route::get('/get-category','getCategory')->name('get-category');
             Route::get('/get-product','getproduct')->name('get-product');
+            Route::get('/get-product-stock','getProductStock')->name('get-product-stock');
         });
     });
     Route::controller(InvoiceController::class)->group(function (){

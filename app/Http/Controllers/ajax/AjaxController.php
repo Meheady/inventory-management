@@ -21,4 +21,11 @@ class AjaxController extends Controller
         $product = Product::where('category_id',$c_id)->get();
         return response()->json($product);
     }
+
+    public function getProductStock(Request  $request)
+    {
+        $id = $request->id;
+        $product = Product::where('id',$id)->first()->quantity;
+        return response()->json($product);
+    }
 }
