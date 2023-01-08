@@ -84,7 +84,6 @@
                                         <th>Product Name</th>
                                         <th>PSC/BOX/KG</th>
                                         <th>Unit Price</th>
-                                        <th>Description</th>
                                         <th>Total Price</th>
                                         <th>Action</th>
                                     </tr>
@@ -93,7 +92,14 @@
                                     </tbody>
                                     <tbody>
                                     <tr>
-                                        <td colspan="5"></td>
+                                        <td colspan="4">Discount</td>
+                                        <td>
+                                            <input type="text" name="discount" value="0" id="discount" class="form-control discount">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">Grand Total</td>
                                         <td>
                                             <input type="text" name="est_amount" value="0" id="est_amount" class="form-control est_amount" readonly>
                                         </td>
@@ -103,8 +109,13 @@
                                     </thead>
                                 </table>
                                 <br>
+                                <div class="form-row mb-1">
+                                    <div class="form-group col-md-12">
+                                        <textarea name="description" id="description" class="form-control" placeholder="Enter short description"></textarea>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <button class="btn btn-info" id="storePurchase">Purchase Now</button>
+                                    <button class="btn btn-info" id="storePurchase">Invoice Add</button>
                                 </div>
                             </form>
                         </div>
@@ -122,9 +133,8 @@
     <script id="template" type="text/x-handlebars-template">
 
         <tr class="delete_add_more" id="delete_add_more">
-            <input type="hidden" name="date[]" value="@{{date}}">
-            <input type="hidden" name="purchase_no[]" value="@{{purchase_no}}">
-            <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">
+            <input type="hidden" name="date" value="@{{date}}">
+            <input type="hidden" name="invoice_no" value="@{{invoice_no}}">
 
             <td>
                 <input type="hidden" name="category_id[]" value="@{{category_id}}">
@@ -135,16 +145,13 @@
                 @{{product_name}}
             </td>
             <td>
-                <input type="number" value="" class="form-control buy_qty text-right" name="buy_qty[]">
+                <input type="number" value="" class="form-control sell_qty text-right" name="sell_qty[]">
             </td>
             <td>
                 <input type="number" value="" class="form-control unit_price text-right" name="unit_price[]">
             </td>
             <td>
-                <input type="text" value="" class="form-control description text-right" name="description[]">
-            </td>
-            <td>
-                <input type="number" value="0" readonly class="form-control buying_price text-right" name="buying_price[]">
+                <input type="number" value="0" readonly class="form-control selling_price text-right" name="selling_price[]">
             </td>
             <td>
                 <button type="button" class="btn btn-danger removeEvent">Del</button>
@@ -160,14 +167,13 @@
             $('.addEvent').click(function(){
 
                 const date= $('#date').val();
-                const purchase_no= $('#purchaseNo').val();
-                const supplier_id= $('#supplier').val();
+                const invoice_no= $('#invoiceNo').val();
                 const category_id= $('#category').val();
                 const category_name= $('#category').find('option:selected').text();
                 const product_id= $('#product').val();
                 const product_name= $('#product').find('option:selected').text();
 
-                if (!date ||!purchase_no ||!supplier_id ||!category_id ||!category_name ||!product_id ||!product_name){
+                if (!date ||!invoice_no ||!category_id ||!category_name ||!product_id ||!product_name){
                     $.notify("All field are required",{globalPosition:'top center',class:'error'});
                     return false;
                 }
@@ -176,8 +182,7 @@
 
                 const data ={
                     date:date,
-                    purchase_no:purchase_no,
-                    supplier_id:supplier_id,
+                    invoice_no:invoice_no,
                     category_id:category_id,
                     category_name:category_name,
                     product_id:product_id,
@@ -193,23 +198,31 @@
                 totalPrice();
             });
 
-            $(document).on('keyup click','.buy_qty,.unit_price',function () {
+            $(document).on('keyup click','.sell_qty,.unit_price',function () {
                 const unitPrice = $(this).closest('tr').find('input.unit_price').val();
-                const qty = $(this).closest('tr').find('input.buy_qty').val();
+                const qty = $(this).closest('tr').find('input.sell_qty').val();
                 const total = unitPrice * qty;
-                $(this).closest('tr').find('input.buying_price').val(total);
+                $(this).closest('tr').find('input.selling_price').val(total);
+                $('#discount').trigger('keyup');
+            })
+
+            $(document).on('keyup','#discount',function(){
                 totalPrice();
             })
 
 
             function totalPrice () {
                 let sum = 0;
-                $('.buying_price').each(function () {
+                $('.selling_price').each(function () {
                     const value = $(this).val();
                     if (!isNaN(value) && value.length != 0){
                         sum += parseFloat(value);
                     }
                 })
+                var discountPrice = parseFloat($('#discount').val());
+                if(!isNaN(discountPrice) && discountPrice.length != 0){
+                    sum -= parseFloat(discountPrice);
+                }
 
                 $(".est_amount").val(sum);
             }
