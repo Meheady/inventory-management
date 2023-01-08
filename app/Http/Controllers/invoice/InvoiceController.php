@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\invoice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class InvoiceController extends Controller
     {
         $supplier = Supplier::all();
         $unit = Unit::all();
+        $customer = Customer::all();
         $category = Category::all();
         $invoice_data = Invoice::orderBy('id','desc')->first();
         if ($invoice_data == null){
@@ -33,6 +35,6 @@ class InvoiceController extends Controller
             $invoiceData = Invoice::orderBy('id','desc')->first()->invoice_no;
             $invoice_no = $invoiceData+1;
         }
-        return view('backend.invoice.add-invoice',compact('invoice_no','supplier','unit','category'));
+        return view('backend.invoice.add-invoice',compact('invoice_no','customer','supplier','unit','category'));
     }
 }

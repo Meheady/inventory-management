@@ -114,7 +114,43 @@
                                         <textarea name="description" id="description" class="form-control" placeholder="Enter short description"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="">Paid Status</label>
+                                        <select name="paid_status" class="form-select" id="paid_status">
+                                            <option value="" selected disable>Select status</option>
+                                            <option value="full_paid">Full Paid</option>
+                                            <option value="full_due">Full Due</option>
+                                            <option value="partial_paid">partial Paid</option>
+                                        </select>
+                                        <input placeholder="Enter paid amount" style="display: none" type="text" class="form-control mt-1 paid_amount" id="paid_amount">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Customer name</label>
+                                        <select name="customer" class="form-select" id="customer">
+                                            <option value="" selected disable>Select customer</option>
+                                            @foreach($customer as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                            <option value="new_customer">New customer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" id="new_customer_add" style="display: none">
+                                    <div class="form-group col-md-4">
+                                        <label for="">Name</label>
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">Phone</label>
+                                        <input type="text" name="phone" id="phone" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group mt-2">
                                     <button class="btn btn-info" id="storePurchase">Invoice Add</button>
                                 </div>
                             </form>
@@ -226,6 +262,23 @@
 
                 $(".est_amount").val(sum);
             }
+
+            $('#paid_status').change(function(){
+                var status = $(this).val();
+                if(status == 'partial_paid'){
+                    $('#paid_amount').show();
+                }else{
+                    $('#paid_amount').hide();
+                }
+            })
+            $('#customer').change(function(){
+                var newc = $(this).val();
+                if(newc == 'new_customer'){
+                    $('#new_customer_add').show();
+                }else{
+                    $('#new_customer_add').hide();
+                }
+            })
 
             $('#category').change(function () {
                 var id = $(this).val();
