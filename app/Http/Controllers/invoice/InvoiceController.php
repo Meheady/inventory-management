@@ -37,4 +37,15 @@ class InvoiceController extends Controller
         }
         return view('backend.invoice.add-invoice',compact('invoice_no','customer','supplier','unit','category'));
     }
+
+    public function InvoiceStore(Request $request)
+    {
+        if($request->category_id == null){
+            return redirect()->back()->with('error','Sorry! You must insert category');
+        }else{
+            if($request->paid_amount > $request->est_amount){
+                return redirect()->back()->with('error','Sorry! Paid amount less than total amount');
+            }
+        }
+    }
 }

@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('purchase.store') }}" method="post">
+                            <form action="{{ route('invoice.store') }}" method="post">
                                 @csrf
                                 <table class="table-md table-bordered" width="100%">
                                     <thead>
@@ -123,7 +123,7 @@
                                             <option value="full_due">Full Due</option>
                                             <option value="partial_paid">partial Paid</option>
                                         </select>
-                                        <input placeholder="Enter paid amount" style="display: none" type="text" class="form-control mt-1 paid_amount" id="paid_amount">
+                                        <input placeholder="Enter paid amount" style="display: none" type="text" class="form-control mt-1 paid_amount" name="paid_amount" id="paid_amount">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="">Customer name</label>
