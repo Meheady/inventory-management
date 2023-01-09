@@ -46,6 +46,10 @@ class InvoiceController extends Controller
             if($request->paid_amount > $request->est_amount){
                 return redirect()->back()->with('error','Sorry! Paid amount less than total amount');
             }
+            else{
+                Invoice::storeInvoice($request);
+                return redirect()->route('invoice.all')->with('Success','Invoice added successfully');
+            }
         }
     }
 }
