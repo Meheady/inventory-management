@@ -78,4 +78,8 @@ class Invoice extends Model
             }
         });
     }
+
+    public function payment(){
+        
+    }
 }
