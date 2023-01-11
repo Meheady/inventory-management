@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\payment;
 
 class Invoice extends Model
 {
@@ -80,6 +81,6 @@ class Invoice extends Model
     }
 
     public function payment(){
-        
+        return $this->belongsTo(payment::class,'invoice_id','id');
     }
 }

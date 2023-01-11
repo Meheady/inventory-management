@@ -28,7 +28,7 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td></td>
+                                        <td>{{ $item->payment && $item->payment->customer && $item->payment->customer->name }}</td>
                                         <td>{{ $item->invoice_no }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->description }}</td>
