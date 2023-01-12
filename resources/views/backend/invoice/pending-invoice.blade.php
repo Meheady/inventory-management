@@ -90,6 +90,39 @@
                 })
 
             });
+            $(document).on('click','.approve',function(event){
+                var getId = $(this).data('id');
+                var parent = $(this).parent();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Approve This Invoice?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Approve it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#pageLoader').show();
+                        $.ajax({
+                            url: "/admin/invoice/approve/"+getId,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(res) {
+                                parent.slideUp(300, function () {
+                                    parent.closest("tr").remove();
+                                    window.location.href = res.url;
+                                    $('#pageLoader').hide();
+                                });
+                            },
+                            error:function(err){
+                                console.log(err);
+                            }
+                        });
+                    }
+                })
+
+            });
         })
     </script>
 @endsection

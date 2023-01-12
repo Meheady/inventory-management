@@ -109,6 +109,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/invoice/store','InvoiceStore')->name('invoice.store');
             Route::get('/invoice/pending','InvoicePending')->name('invoice.pending');
             Route::get('/invoice/delete/{id}','InvoiceDelete');
+            Route::get('/invoice/approve/{id}','InvoiceApprove');
         });
     });
 });

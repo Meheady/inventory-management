@@ -68,12 +68,12 @@
                 var parent = $(this).parent();
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "Approve This Data?",
+                    text: "Approve This Purchase?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Yes, Purchase it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#pageLoader').show();

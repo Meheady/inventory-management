@@ -71,4 +71,9 @@ class InvoiceController extends Controller
         paymentDetail::where('invoice_id',$invoice->id)->delete();
         return response()->json(['massage'=>'Delete successfully','url'=>'/admin/invoice/pending']);
     }
+
+    public function InvoiceApprove($id)
+    {
+        $invoice = Invoice::find($id);
+    }
 }
