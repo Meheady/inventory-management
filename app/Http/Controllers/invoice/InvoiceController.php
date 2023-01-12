@@ -4,6 +4,9 @@ namespace App\Http\Controllers\invoice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\detailsInvoice;
+use App\Models\payment;
+use App\Models\paymentDetail;
 use App\Models\Purchase;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -16,7 +19,7 @@ class InvoiceController extends Controller
 {
     public function InvoiceAll()
     {
-        $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->get();
+        $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status','1')->get();
         return view('backend.invoice.all-invoice',['allData'=>$allData]);
     }
 
@@ -48,8 +51,24 @@ class InvoiceController extends Controller
             }
             else{
                 Invoice::storeInvoice($request);
-                return redirect()->route('invoice.all')->with('Success','Invoice added successfully');
+                return redirect()->route('invoice.pending')->with('Success','Invoice added successfully');
             }
         }
+    }
+
+    public function InvoicePending()
+    {
+        $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status','0')->get();
+        return view('backend.invoice.pending-invoice',['allData'=>$allData]);
+    }
+
+    public function InvoiceDelete($id)
+    {
+        $invoice = Invoice::find($id);
+        $invoice->delete();
+        detailsInvoice::where('invoice_id',$invoice->id)->delete();
+        payment::where('invoice_id',$invoice->id)->delete();
+        paymentDetail::where('invoice_id',$invoice->id)->delete();
+        return response()->json(['massage'=>'Delete successfully','url'=>'/admin/invoice/pending']);
     }
 }
