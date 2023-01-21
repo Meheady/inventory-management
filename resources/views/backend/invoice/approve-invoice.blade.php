@@ -40,10 +40,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($invoice->invoiceDetails as $item)
+                                    @foreach($invoice['invoiceDetails'] as $item)
                                     <tr>
                                         <td class="text-center">{{$loop->iteration}}</td>
-                                        <td class="text-center">{{ $item->category->name }}</td>
+                                        <td class="text-center">{{ $item['category']['name'] }}</td>
                                         <td class="text-center">{{$item->product->name}}</td>
                                         <td class="text-center">{{$item->product->quantity}}</td>
                                         <td class="text-center">{{$item->selling_qty}}</td>
