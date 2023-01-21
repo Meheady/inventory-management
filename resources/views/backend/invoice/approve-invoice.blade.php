@@ -26,14 +26,15 @@
                                 </tbody>
                             </table>
 
-                            <form action="">
+                            <form action="{{ route('invoice.approve.store',$invoice->id) }}" method="post">
+                                @csrf
                                 <table border="1" class="table table-dark">
                                     <thead>
                                     <tr>
                                         <th>Sl</th>
                                         <th>Category</th>
                                         <th>Product Name</th>
-                                        <th>Current Stock</th>
+                                        <th style="background:#04a89b">Current Stock</th>
                                         <th>Quantity</th>
                                         <th>Unit Price</th>
                                         <th>Total Price</th>
@@ -45,10 +46,13 @@
                                     @endphp
                                     @foreach($invoice['invoiceDetails'] as $item)
                                     <tr>
+                                        <input type="hidden" name="category_id[]" value="{{ $item->category_id }}">
+                                        <input type="hidden" name="product_id[]" value="{{ $item->product_id }}">
+                                        <input type="hidden" name="selling_qty[{{ $item->id }}]" value="{{ $item->selling_qty }}">
                                         <td class="text-center">{{$loop->iteration}}</td>
                                         <td class="text-center">{{ $item['category']['name'] }}</td>
                                         <td class="text-center">{{$item->product->name}}</td>
-                                        <td class="text-center">{{$item->product->quantity}}</td>
+                                        <td class="text-center" style="background:#04a89b">{{$item->product->quantity}}</td>
                                         <td class="text-center">{{$item->selling_qty}}</td>
                                         <td class="text-center">{{$item->unit_price}}</td>
                                         <td class="text-center">{{$item->selling_price}}</td>
@@ -61,8 +65,26 @@
                                         <td colspan="6" class="text-center">Sub Total</td>
                                         <td class="text-center">{{ $total_sum }}</td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Discount</td>
+                                        <td class="text-center">{{ $payment->discount_amount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Paid Amount</td>
+                                        <td class="text-center">{{ $payment->paid_amount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Due Amount</td>
+                                        <td class="text-center">{{ $payment->due_amount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Grand Total Amount</td>
+                                        <td class="text-center">{{ $payment->total_amount }}</td>
+                                    </tr>
                                     </tbody>
                                 </table>
+
+                                <button type="submit" class="btn btn-info">Submit</button>
                             </form>
                         </div>
                     </div>

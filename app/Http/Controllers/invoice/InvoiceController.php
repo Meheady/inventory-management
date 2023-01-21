@@ -78,4 +78,12 @@ class InvoiceController extends Controller
         $payment = payment::where('invoice_id', $id)->first();
         return view('backend.invoice.approve-invoice',compact('invoice','payment'));
     }
+
+    public function InvoiceApproveStore(Request $request,$id)
+    {
+
+        foreach ($request->selling_qty as $item){
+            
+        }
+    }
 }
