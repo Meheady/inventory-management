@@ -74,6 +74,8 @@ class InvoiceController extends Controller
 
     public function InvoiceApprove($id)
     {
-        $invoice = Invoice::find($id);
+        $invoice = Invoice::with('invoiceDetails')->find($id);
+        $payment = payment::where('invoice_id', $id)->first();
+        return view('backend.invoice.approve-invoice',compact('invoice','payment'));
     }
 }

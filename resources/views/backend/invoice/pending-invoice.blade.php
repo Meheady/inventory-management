@@ -29,8 +29,8 @@
                                 @foreach($allData as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item['payment'] && $item['payment']['customer'] ? $item['payment']['customer']['name']:'' }}</td>
-                                        <td>{{ $item['invoice_no'] }}</td>
+                                        <td>{{ $item['payment']['customer']['name']  }}</td>
+                                        <td>#{{ $item['invoice_no'] }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->description }}</td>
                                         <td>
@@ -40,7 +40,7 @@
                                         </td>
                                         <td>
 
-                                            <button id="approve"  data-id="{{ $item->id }}" class="btn btn-info approve">Approve</button>
+                                            <a href="{{ route('invoice.approve',['id'=>$item->id]) }}" class="btn btn-info approve">Approve</a>
                                             <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
                                         </td>
                                     </tr>
@@ -90,39 +90,7 @@
                 })
 
             });
-            $(document).on('click','.approve',function(event){
-                var getId = $(this).data('id');
-                var parent = $(this).parent();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Approve This Invoice?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Approve it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#pageLoader').show();
-                        $.ajax({
-                            url: "/admin/invoice/approve/"+getId,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(res) {
-                                parent.slideUp(300, function () {
-                                    parent.closest("tr").remove();
-                                    window.location.href = res.url;
-                                    $('#pageLoader').hide();
-                                });
-                            },
-                            error:function(err){
-                                console.log(err);
-                            }
-                        });
-                    }
-                })
 
-            });
         })
     </script>
 @endsection
