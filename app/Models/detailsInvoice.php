@@ -16,6 +16,6 @@ class detailsInvoice extends Model
     }
     public function product()
     {
-        return $this->belongsTo(Category::class,'product_id','id');
+        return $this->belongsTo(Product::class,'product_id','id');
     }
 }

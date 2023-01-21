@@ -40,6 +40,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                        $total_sum = 0;
+                                    @endphp
                                     @foreach($invoice['invoiceDetails'] as $item)
                                     <tr>
                                         <td class="text-center">{{$loop->iteration}}</td>
@@ -50,7 +53,14 @@
                                         <td class="text-center">{{$item->unit_price}}</td>
                                         <td class="text-center">{{$item->selling_price}}</td>
                                     </tr>
+                                    @php
+                                        $total_sum += $item->selling_price;
+                                    @endphp
                                     @endforeach
+                                    <tr>
+                                        <td colspan="6" class="text-center">Sub Total</td>
+                                        <td class="text-center">{{ $total_sum }}</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </form>
