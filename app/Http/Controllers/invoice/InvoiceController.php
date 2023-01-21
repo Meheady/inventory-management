@@ -107,4 +107,10 @@ class InvoiceController extends Controller
             return redirect()->route('invoice.pending')->with('massage','Invoice approve successfully');
         }
     }
+
+    public function InvoicePrint()
+    {
+        $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status','1')->get();
+        return view('backend.invoice.print-invoice',['allData'=>$allData]);
+    }
 }
