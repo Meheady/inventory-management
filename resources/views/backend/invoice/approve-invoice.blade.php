@@ -15,7 +15,7 @@
                                 <tr>
                                     <td><p>Customer Info</p></td>
                                     <td><p>Name: <strong>{{ $payment->customer->name }}</strong></p></td>
-                                    <td><p>Mobile: <strong>{{ $payment->customer->name }}</strong></p></td>
+                                    <td><p>Mobile: <strong>{{ $payment->customer->phone }}</strong></p></td>
                                     <td><p>Email: <strong>{{ $payment->customer->email }}</strong></p></td>
                                 </tr>
                                 <tr>

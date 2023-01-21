@@ -113,4 +113,11 @@ class InvoiceController extends Controller
         $allData = Invoice::orderBy('date','desc')->orderBy('id','desc')->where('status','1')->get();
         return view('backend.invoice.print-invoice',['allData'=>$allData]);
     }
+
+    public function printInvoice($id)
+    {
+        $invoice = Invoice::with('invoiceDetails')->find($id);
+        $payment = payment::where('invoice_id', $id)->first();
+        return view('backend.pdf.invoice_pdf',compact('invoice','payment'));
+    }
 }

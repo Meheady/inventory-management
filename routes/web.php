@@ -112,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/invoice/approve/{id}','InvoiceApprove')->name('invoice.approve');
             Route::post('/invoice/approve/store/{id}','InvoiceApproveStore')->name('invoice.approve.store');
             Route::get('/invoice/print','InvoicePrint')->name('invoice.print');
+            Route::get('/print/invoice/{id}','printInvoice')->name('print.invoice');
         });
     });
 });
