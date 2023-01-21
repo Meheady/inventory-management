@@ -19,7 +19,7 @@
                                     <th>Invoice No</th>
                                     <th>Date</th>
                                     <th>Description</th>
-                                    <th>Action</th>
+                                    <th>Status</th>
                                 </tr>
                                 </thead>
 
@@ -33,7 +33,7 @@
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->description }}</td>
                                         <td>
-                                            <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
+                                            <button class="btn btn-success">Approve</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -51,36 +51,6 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $(document).on('click','.delete',function(event){
-                var getId = $(this).data('id');
-                var parent = $(this).parent();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Delete This Data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#pageLoader').show();
-                        $.ajax({
-                            url: "/admin/purchase/delete/"+getId,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(res) {
-                                parent.slideUp(300, function () {
-                                    parent.closest("tr").remove();
-                                    $('#pageLoader').hide();
-                                });
-                            }
-                        });
-                    }
-                })
-
-            });
         })
     </script>
 @endsection

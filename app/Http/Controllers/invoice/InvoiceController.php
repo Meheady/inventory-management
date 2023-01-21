@@ -14,6 +14,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\Invoice;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -82,8 +84,27 @@ class InvoiceController extends Controller
     public function InvoiceApproveStore(Request $request,$id)
     {
 
-        foreach ($request->selling_qty as $item){
-            
+        foreach ($request->selling_qty as $key => $val){
+
+            $invoice_details  = detailsInvoice::where('id',$key)->first();
+            $product = Product::where('id',$invoice_details->product_id)->first();
+            if ($product->quantity < $request->selling_qty[$key]){
+                return redirect()->back()->with('error','Sorry you approve maximum value');
+            }
+            $invoice = Invoice::find($id);
+            $invoice->updated_by = Auth::user()->id;
+            $invoice->status = '1';
+
+            DB::transaction(function() use($request,$invoice,$id){
+               foreach ($request->selling_qty as $key =>$val){
+                   $invoice_details = detailsInvoice::where('id',$key)->first();
+                   $product = Product::where('id',$invoice_details->product_id)->first();
+                   $product->quantity = ((float)$product->quantity) - ((float)$request->selling_qty[$key]);
+                   $product->save();
+               }
+               $invoice->save();
+            });
+            return redirect()->route('invoice.pending')->with('massage','Invoice approve successfully');
         }
     }
 }
