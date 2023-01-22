@@ -125,4 +125,12 @@ class InvoiceController extends Controller
     {
         return view('backend.invoice.daily-invoice-report');
     }
+
+    public function dailyInvoiceReportGet(Request $request)
+    {
+        $sdate = $request->startdate;
+        $enddate = $request->enddate;
+        $allData = Invoice::whereBetween('date',[$sdate,$enddate])->where('status','1')->get();
+        return view('backend.pdf.daily-invoice-report-pdf',compact('allData','sdate','enddate'));
+    }
 }

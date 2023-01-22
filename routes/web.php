@@ -114,6 +114,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/invoice/print','InvoicePrint')->name('invoice.print');
             Route::get('/print/invoice/{id}','printInvoice')->name('print.invoice');
             Route::get('/invoice/report/daily','dailyInvoiceReport')->name('daily.invoice.report');
+            Route::get('/invoice/report/get/pdf','dailyInvoiceReportGet')->name('daily.invoice.report.get');
         });
     });
 });

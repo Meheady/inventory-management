@@ -13,7 +13,7 @@
                         <div class="card-body">
 
 
-                            <form action="" method="post" target="_blank">
+                            <form action="{{ route('daily.invoice.report.get') }}" method="get" target="_blank">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group row mb-1">
