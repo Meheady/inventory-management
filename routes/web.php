@@ -10,6 +10,7 @@ use App\Http\Controllers\product\ProductController;
 use App\Http\Controllers\purchase\PurchaseController;
 use App\Http\Controllers\ajax\AjaxController;
 use App\Http\Controllers\invoice\InvoiceController;
+use App\Http\Controllers\stock\StockController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,6 +117,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/invoice/report/daily','dailyInvoiceReport')->name('daily.invoice.report');
             Route::get('/invoice/report/get/pdf','dailyInvoiceReportGet')->name('daily.invoice.report.get');
         });
+    });
+
+    Route::controller(StockController::class)->group(function (){
+        Route::prefix('admin')->group(function (){
+            Route::get('/stock/report','stockReport')->name('stock.report');
+            Route::get('/stock/report/pdf','stockReportPdf')->name('stock.report.pdf');
+          });
     });
 });
 
