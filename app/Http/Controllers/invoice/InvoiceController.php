@@ -120,4 +120,9 @@ class InvoiceController extends Controller
         $payment = payment::where('invoice_id', $id)->first();
         return view('backend.pdf.invoice_pdf',compact('invoice','payment'));
     }
+
+    public function dailyInvoiceReport()
+    {
+        return view('backend.invoice.daily-invoice-report');
+    }
 }

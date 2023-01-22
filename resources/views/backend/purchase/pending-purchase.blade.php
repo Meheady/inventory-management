@@ -84,7 +84,7 @@
                             success: function(res) {
                                 parent.slideUp(300, function () {
                                     parent.closest("tr").remove();
-                                    window.location.href = res.url;
+                                    // window.location.href = res.url;
                                     $('#pageLoader').hide();
                                 });
                             },
