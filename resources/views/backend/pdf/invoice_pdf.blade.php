@@ -134,6 +134,10 @@
                                                 </table>
                                             </div>
 
+                                            @php
+                                                $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
+                                            @endphp
+                                            <i>Printed Time {{ $date->format('d.m.Y, h:i:s') }}</i>
                                             <div class="d-print-none">
                                                 <div class="float-end">
                                                     <a href="javascript:window.print()" class="btn btn-md btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
@@ -157,6 +161,7 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
+            window.print();
         })
     </script>
 @endsection

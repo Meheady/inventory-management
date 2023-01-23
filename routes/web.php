@@ -123,6 +123,8 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('admin')->group(function (){
             Route::get('/stock/report','stockReport')->name('stock.report');
             Route::get('/stock/report/pdf','stockReportPdf')->name('stock.report.pdf');
+            Route::get('/stock/supplier','stockSupplier')->name('supplier.wise.stock.report');
+            Route::get('/stock/supplier/pdf','stockSupplierPdf')->name('supplier.wise.pdf');
           });
     });
 });

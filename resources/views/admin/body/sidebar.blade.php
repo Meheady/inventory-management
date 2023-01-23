@@ -91,7 +91,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('stock.report') }}">Stock Report</a></li>
-                        <li><a href="auth-register.html">Supplier & product wise stock</a></li>
+                        <li><a href="{{ route('supplier.wise.stock.report') }}">Supplier & product wise stock</a></li>
                     </ul>
                 </li>
 
