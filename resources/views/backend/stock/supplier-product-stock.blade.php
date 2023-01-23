@@ -33,6 +33,29 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="show-product">
+                                <form action="{{ route('product.wise.pdf') }}" target="_blank" method="get">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="">Category Name</label>
+                                            <select required name="category_name" id="category" class="form-select select2">
+                                                <option value="" selected disabled>Select Category</option>
+                                                @foreach($category as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="">Product Name</label>
+                                            <select required name="product_name" id="product" class="form-select select2">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mt-4">
+                                            <button type="submit" class="btn btn-info">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,6 +82,28 @@
                     $('.show-supplier').hide();
                     $('.show-product').show();
                 }
+            });
+            $('#category').change(function () {
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "{{route('get-product')}}",
+                    type:"GET",
+                    dataType:"json",
+                    data:{
+                        id:id,
+                    },
+                    success:function (res) {
+                        var html = '<option value="" selected disable>---Select Product---</option>'
+                        $.each(res,function (key,v) {
+                            html += '<option value="'+ v.id +'">'+ v.name +'</option>'
+                        })
+                        $('#product').html(html);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
             })
         });
     </script>
