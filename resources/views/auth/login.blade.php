@@ -6,8 +6,8 @@
     <meta charset="utf-8" />
     <title>Login | Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="This is complete inventory management system" name="description" />
+    <meta content="meheady" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('/admin')}}/assets/images/favicon.ico">
 
@@ -20,8 +20,8 @@
 
 </head>
 
-<body class="auth-body-bg">
-<div class="bg-overlay"></div>
+<body class="auth-body">
+{{--<div class="bg-overlay"></div>--}}
 <div class="wrapper-page">
     <div class="container-fluid p-0">
         <div class="card">
@@ -29,9 +29,8 @@
 
                 <div class="text-center mt-4">
                     <div class="mb-3">
-                        <a href="index.html" class="auth-logo">
-                            <img src="{{asset('/admin')}}/assets/images/logo-dark.png" height="30" class="logo-dark mx-auto" alt="">
-                            <img src="{{asset('/admin')}}/assets/images/logo-light.png" height="30" class="logo-light mx-auto" alt="">
+                        <a href="{{route('login')}}" class="auth-logo">
+                            <img src="{{asset('/admin')}}/assets/images/img.png" height="30" class="logo-dark mx-auto" alt="">
                         </a>
                     </div>
                 </div>

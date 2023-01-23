@@ -23,7 +23,7 @@ use App\Http\Controllers\stock\StockController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
