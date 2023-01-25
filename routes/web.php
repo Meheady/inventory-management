@@ -94,6 +94,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/purchase/approve/{id}','purchaseApprove');
             Route::get('/purchase/pending','purchasePending')->name('purchase.pending');
             Route::get('/purchase/delete/{id}','purchaseDelete');
+            Route::get('/purchase/report/daily','purchaseReportDaily')->name('daily.purchase.report');
+            Route::get('/purchase/report/daily/pdf','purchaseReportDailyPdf')->name('daily.purchase.report.pdf');
         });
     });
     Route::controller(AjaxController::class)->group(function (){

@@ -1,5 +1,6 @@
 @extends('admin.master')
 @section('admin')
+
     <div class="page-content">
         <div class="container-fluid">
 
@@ -7,11 +8,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Stock Report</h4>
+                        <h4 class="mb-sm-0">Daily Purchase Report</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item active">Stock Report</li>
+                                <li class="breadcrumb-item active">Daily Purchase Report</li>
                             </ol>
                         </div>
 
@@ -22,7 +23,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card" id="printThis">
                         <div class="card-body">
 
                             <div class="row">
@@ -54,6 +55,7 @@
                                 <div class="col-12">
                                     <div>
                                         <div class="p-2">
+                                            <h3 class="font-size-16"><strong>Daily Purchase Report From -> {{ date('d-m-Y',strtotime($sdate)) }} To {{ date('d-m-Y',strtotime($enddate)) }}</strong></h3>
                                         </div>
                                         <div class="">
                                             <div class="table-responsive">
@@ -62,39 +64,43 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Sl</th>
-                                                        <th>Supplier</th>
-                                                        <th>Category</th>
-                                                        <th>Unit</th>
+                                                        <th>Purchase No</th>
+                                                        <th>Date</th>
                                                         <th>Product Name</th>
-                                                        <th>Buy Total</th>
-                                                        <th>Sell Total</th>
-                                                        <th>Stock</th>
+                                                        <th>Quantity</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Total Price</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @php
+                                                        $total_sum = 0;
+                                                    @endphp
                                                     @foreach($allData as $item)
-                                                        @php
-                                                            $buying_total = App\Models\Purchase::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('buying_qty');
-                                                            $selling_total = App\Models\detailsInvoice::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('selling_qty');
-                                                        @endphp
                                                         <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $item->supplier? $item->supplier->name:'' }}</td>
-                                                            <td>{{ $item->category? $item->category->name:'' }}</td>
-                                                            <td>{{ $item->unit? $item->unit->name:'' }}</td>
-                                                            <td>{{$item->name}}</td>
-                                                            <td>{{$buying_total}}</td>
-                                                            <td>{{$selling_total}}</td>
-                                                            <td>{{$item->quantity}}</td>
+                                                            <td class="text-center">{{$loop->iteration}}</td>
+                                                            <td class="text-center">{{ $item->purchase_no }}</td>
+                                                            <td class="text-center" >{{date('d-m-Y',strtotime($item->date))}}</td>
+                                                            <td class="text-center">{{$item->product->name}}</td>
+                                                            <td class="text-center">{{$item->buying_qty}} {{ $item->product->unit->name }}</td>
+                                                            <td class="text-center">{{$item->unit_price }}</td>
+                                                            <td class="text-center">{{$item->buying_price }}</td>
                                                         </tr>
+                                                        @php
+                                                            $total_sum += $item->buying_price;
+                                                        @endphp
                                                     @endforeach
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">Sub Total</td>
+                                                        <td class="text-center">{{ $total_sum }}</td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
 
                                             @php
                                                 $date = new DateTime('now',new DateTimeZone('Asia/Dhaka'));
-                                                @endphp
+                                            @endphp
                                             <i>Printed Time {{ $date->format('d.m.Y, h:i:s') }}</i>
                                             <div class="d-print-none">
                                                 <div class="float-end">

@@ -59,4 +59,17 @@ class PurchaseController extends Controller
             return response()->json(['massage'=>'Approve successfully','url'=>'/admin/purchase/all']);
         }
     }
+
+    public function purchaseReportDaily()
+    {
+        return view('backend.purchase.daily-purchase-report');
+    }
+
+    public function purchaseReportDailyPdf(Request $request)
+    {
+        $sdate = $request->startdate;
+        $enddate = $request->enddate;
+        $allData = Purchase::whereBetween('date',[$sdate,$enddate])->where('status','1')->get();
+        return view('backend.pdf.daily-purchase-pdf',compact('allData','sdate','enddate'));
+    }
 }
