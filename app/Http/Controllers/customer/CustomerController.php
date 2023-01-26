@@ -4,6 +4,7 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\payment;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -41,4 +42,17 @@ class CustomerController extends Controller
         Customer::customerUpdate($request);
         return redirect()->back()->with('massage','Update successfully');
     }
+
+    public function customerCredit()
+    {
+        $allData = payment::whereIn('paid_status',['full_due','partial_due'])->get();
+        return view('backend.customer.customer-credit',compact('allData'));
+    }
+
+    public function customerCreditPdf()
+    {
+        $allData = payment::whereIn('paid_status',['full_due','partial_due'])->get();
+        return view('backend.pdf.customer-credit-pdf',compact('allData'));
+    }
+
 }

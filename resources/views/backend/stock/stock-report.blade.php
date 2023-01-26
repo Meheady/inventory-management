@@ -18,7 +18,9 @@
                                     <th>Unit</th>
                                     <th>Product Name</th>
                                     <th>Buy Total</th>
+                                    <th>Buying Price</th>
                                     <th>Sell Total</th>
+                                    <th>Selling Price}</th>
                                     <th>Stock</th>
                                 </tr>
                                 </thead>
@@ -26,7 +28,9 @@
                                 @foreach($allData as $item)
                                     @php
                                         $buying_total = App\Models\Purchase::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('buying_qty');
+                                        $buying_price = App\Models\Purchase::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('unit_price');
                                         $selling_total = App\Models\detailsInvoice::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('selling_qty');
+                                        $selling_price = App\Models\detailsInvoice::where('category_id',$item->category_id)->where('product_id',$item->id)->where('status','1')->sum('unit_price');
                                     @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -35,7 +39,9 @@
                                         <td>{{ $item->unit? $item->unit->name:'' }}</td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$buying_total}}</td>
+                                        <td>{{$buying_price}}</td>
                                         <td>{{$selling_total}}</td>
+                                        <td>{{$selling_price}}</td>
                                         <td>{{$item->quantity}}</td>
                                     </tr>
                                 @endforeach

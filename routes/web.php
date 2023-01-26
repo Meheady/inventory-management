@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/customer/update','customerUpdate')->name('customer.update');
             Route::get('/customer/edit/{id}','customerEdit');
             Route::get('/customer/delete/{id}','customerDelete');
+            Route::get('/customer/credit','customerCredit')->name('customer.credit');
+            Route::get('/customer/credit/pdf','customerCreditPdf')->name('customer.credit.pdf');
         });
     });
     Route::controller(UnitController::class)->group(function (){
@@ -118,6 +120,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/print/invoice/{id}','printInvoice')->name('print.invoice');
             Route::get('/invoice/report/daily','dailyInvoiceReport')->name('daily.invoice.report');
             Route::get('/invoice/report/get/pdf','dailyInvoiceReportGet')->name('daily.invoice.report.get');
+            Route::get('/profit/loss/report','ProfitLossReport')->name('profit.loss.report');
+            Route::get('/profit/loss/report/pdf','ProfitLossReportPdf')->name('profit.loss.report.pdf');
         });
     });
 

@@ -30,6 +30,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('customer.all') }}">All Customer</a></li>
+                        <li><a href="{{ route('customer.credit') }}">Credit Customer</a></li>
                     </ul>
                 </li>
                 <li>
@@ -62,7 +63,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-menu-fill"></i>
-                        <span>Manage Purchase</span>
+                        <span>Manage Sells</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('purchase.all') }}">All Purchase</a></li>
@@ -77,8 +78,9 @@
                         <span>Manage Invoice</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('invoice.all') }}">All Invoice</a></li>
-                        <li><a href="{{ route('invoice.pending') }}">Approval Invoice</a></li>
+                        <li><a href="{{ route('invoice.add') }}">New Sell</a></li>
+                        <li><a href="{{ route('invoice.all') }}">All Sells</a></li>
+                        <li><a href="{{ route('invoice.pending') }}">Approval Sells</a></li>
                         <li><a href="{{ route('invoice.print') }}">Print Invoice</a></li>
                         <li><a href="{{ route('daily.invoice.report') }}">Daily Invoice Report</a></li>
                     </ul>
@@ -93,6 +95,15 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('stock.report') }}">Stock Report</a></li>
                         <li><a href="{{ route('supplier.wise.stock.report') }}">Supplier & product wise stock</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-menu-fill"></i>
+                        <span>Report</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('profit.loss.report') }}">Profit & Loss Report</a></li>
                     </ul>
                 </li>
 

@@ -16,6 +16,7 @@ use App\Models\Supplier;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function GuzzleHttp\Promise\all;
 
 class InvoiceController extends Controller
 {
@@ -132,5 +133,22 @@ class InvoiceController extends Controller
         $enddate = $request->enddate;
         $allData = Invoice::whereBetween('date',[$sdate,$enddate])->where('status','1')->get();
         return view('backend.pdf.daily-invoice-report-pdf',compact('allData','sdate','enddate'));
+    }
+
+    public function ProfitLossReport()
+    {
+        return view('backend.report.profit-loss-report');
+    }
+
+    public function ProfitLossReportPdf(Request $request)
+    {
+        $sdate = $request->startdate;
+        $enddate = $request->enddate;
+
+        $invoice = Invoice::whereBetween('date',[$sdate,$enddate])->where('status','1')->get();
+        $detailsInvoice = detailsInvoice::whereBetween('date',[$sdate,$enddate])->get();
+
+        return view('backend.pdf.profit-loss-report-pdf',compact('invoice','detailsInvoice','sdate','enddate'));
+
     }
 }
