@@ -31,8 +31,7 @@
                                         <td>{{  date('d-m-Y',strtotime($item->invoice->date)) }}</td>
                                         <td>{{$item->due_amount}}</td>
                                         <td>
-                                            <button data-toggle="modal" class="btn btn-success edit" data-id="{{ $item->id }}" data-target="#editcustomer">Edit</button>
-                                            <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
+                                            <a href="{{route('customer.invoice.edit',$item->invoice_id)}}" class="btn btn-info">Edit Invoice</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -113,62 +112,7 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $(".edit").click(function(){
-                var getId = $(this).data('id');
-                $('#pageLoader').show();
-                $.ajax({
-                    url: "/admin/customer/edit/"+getId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        $('#pageLoader').hide();
-                        console.log(res);
-                        $("#namee").val(res.name);
-                        $('#phonee').val(res.phone);
-                        $('#addresse').val(res.address);
-                        $('#emaile').val(res.email);
-                        $('#hidden').val(res.id);
-                        $('#viewImg').attr('src',"/"+res.image);
 
-
-                        if (res.status == 1){
-                            $("#activee").prop('checked', true);
-                        }
-                        else{
-                            $("#inactivee").prop('checked', true);
-                        }
-                    }
-                });
-            });
-            $(".delete").click(function(){
-                var getId = $(this).data('id');
-                var parent = $(this).parent();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Delete This Data?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#pageLoader').show();
-                        $.ajax({
-                            url: "/admin/customer/delete/"+getId,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function(res) {
-                                parent.slideUp(300, function () {
-                                    parent.closest("tr").remove();
-                                    $('#pageLoader').hide();
-                                });
-                            }
-                        });
-                    }
-                })
-
-            });
         });
     </script>
 @endsection

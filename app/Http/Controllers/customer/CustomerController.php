@@ -45,14 +45,21 @@ class CustomerController extends Controller
 
     public function customerCredit()
     {
-        $allData = payment::whereIn('paid_status',['full_due','partial_due'])->get();
+        $allData = payment::whereIn('paid_status',['full_due','partial_paid'])->get();
         return view('backend.customer.customer-credit',compact('allData'));
     }
 
     public function customerCreditPdf()
     {
-        $allData = payment::whereIn('paid_status',['full_due','partial_due'])->get();
+        $allData = payment::whereIn('paid_status',['full_due','partial_paid'])->get();
         return view('backend.pdf.customer-credit-pdf',compact('allData'));
     }
 
+    public function customerInvoiceEdit($invoice_id)
+    {
+
+        $payment = payment::where('invoice_id',$invoice_id)->first();
+        return view('backend.customer.customer_edit_invoice',compact('payment'));
+
+    }
 }

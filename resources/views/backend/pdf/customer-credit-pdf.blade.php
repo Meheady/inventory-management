@@ -66,7 +66,6 @@
                                                         <th>Invoice No</th>
                                                         <th>Date</th>
                                                         <th>Due Amount</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                     </thead>
 
@@ -79,10 +78,6 @@
                                                             <td>{{$item->invoice->invoice_no}}</td>
                                                             <td>{{  date('d-m-Y',strtotime($item->invoice->date)) }}</td>
                                                             <td>{{$item->due_amount}}</td>
-                                                            <td>
-                                                                <button data-toggle="modal" class="btn btn-success edit" data-id="{{ $item->id }}" data-target="#editcustomer">Edit</button>
-                                                                <button id="delete"  data-id="{{ $item->id }}" class="btn btn-danger delete">Del</button>
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
