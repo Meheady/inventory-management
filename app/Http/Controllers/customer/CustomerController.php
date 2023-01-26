@@ -4,6 +4,8 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\detailsInvoice;
+use App\Models\Invoice;
 use App\Models\payment;
 use Illuminate\Http\Request;
 
@@ -57,9 +59,21 @@ class CustomerController extends Controller
 
     public function customerInvoiceEdit($invoice_id)
     {
-
         $payment = payment::where('invoice_id',$invoice_id)->first();
-        return view('backend.customer.customer_edit_invoice',compact('payment'));
+        $invoiceDetails = detailsInvoice::where('invoice_id',$payment->invoice_id)->get();
+        return view('backend.customer.customer_edit_invoice',compact('payment','invoiceDetails'));
+    }
+
+    public function customerInvoiceUpdate(Request $request, $invoice_id)
+    {
+
+        if($request->new_paid_amount < $request->paid_amount){
+            return redirect()->back()->with('error','Sorry! Paid amount less than total amount');
+        }
+        else{
+            Invoice::updateInvoice($request,$invoice_id);
+            return redirect()->route('customer.credit')->with('Success','Invoice update successfully');
+        }
 
     }
 }

@@ -79,6 +79,34 @@ class Invoice extends Model
         });
     }
 
+    public static function updateInvoice($request, $id)
+    {
+        $payment = payment::where('invoice_id',$id)->first();
+        $paymentDetail = new paymentDetail();
+
+        DB::transaction(function ()use($request,$id,$payment,$paymentDetail){
+            $payment->paid_status = $request->paid_status;
+
+            if ($request->paid_status == 'full_paid'){
+                $payment->paid_amount = $payment->paid_amount + $request->new_paid_amount;
+                $payment->due_amount = '0';
+                $paymentDetail->current_paid_amount = $request->new_paid_amount;
+            }
+            else if ($request->paid_status == 'partial_paid'){
+                $payment->paid_amount = $payment->paid_amount + $request->paid_amount;
+                $payment->due_amount = $payment->due_amount - $payment->paid_amount;
+                $paymentDetail->current_paid_amount = $payment->paid_amount;
+            }
+
+            $payment->save();
+
+            $paymentDetail->invoice_id = $id;
+            $paymentDetail->date = date('Y-m-d',strtotime($request->date));
+            $paymentDetail->update_by = Auth::user()->id;
+            $paymentDetail->save();
+        });
+    }
+
     public function payment()
     {
         return $this->belongsTo(payment::class,'id','invoice_id');
