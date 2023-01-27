@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/customer/credit/pdf','customerCreditPdf')->name('customer.credit.pdf');
             Route::get('/customer/invoice/edit/{invoice_id}','customerInvoiceEdit')->name('customer.invoice.edit');
             Route::post('/customer/invoice/update/{invoice_id}','customerInvoiceUpdate')->name('update.customer.invoice');
+            Route::get('/customer/invoice/details/pdf/{invoice_id}','customerInvoiceDetailsPdf')->name('customer.invoice.details.pdf');
         });
     });
     Route::controller(UnitController::class)->group(function (){

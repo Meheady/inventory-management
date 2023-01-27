@@ -32,7 +32,7 @@
                                         <td>{{$item->due_amount}}</td>
                                         <td>
                                             <a href="{{route('customer.invoice.edit',$item->invoice_id)}}" class="btn btn-info">Edit Invoice</a>
-                                            <a href="{{route('customer.invoice.details',$item->invoice_id)}}" class="btn btn-info">Details Invoice</a>
+                                            <a href="{{route('customer.invoice.details.pdf',$item->invoice_id)}}" target="_blank" class="btn btn-info">Details Invoice</a>
                                         </td>
                                     </tr>
                                 @endforeach
