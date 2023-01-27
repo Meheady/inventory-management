@@ -137,7 +137,10 @@ class InvoiceController extends Controller
 
     public function ProfitLossReport()
     {
-        return view('backend.report.profit-loss-report');
+        $sell = Invoice::where('status','1')->select('id')->get();
+        $sellDetails = detailsInvoice::whereIn('invoice_id',$sell)->select('product_id')->groupBy('product_id')->get();
+        $allData = Product::whereIn('id',$sellDetails)->orderBy('supplier_id','asc')->orderBy('category_id','asc')->get();
+        return view('backend.report.profit-loss-report',compact('allData'));
     }
 
     public function ProfitLossReportPdf(Request $request)

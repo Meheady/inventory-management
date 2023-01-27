@@ -51,9 +51,21 @@ class CustomerController extends Controller
         return view('backend.customer.customer-credit',compact('allData'));
     }
 
+    public function customerPaid()
+    {
+        $allData = payment::where('paid_status','!=','full_due')->get();
+        return view('backend.customer.customer-paid',compact('allData'));
+    }
+
     public function customerCreditPdf()
     {
         $allData = payment::whereIn('paid_status',['full_due','partial_paid'])->get();
+        return view('backend.pdf.customer-credit-pdf',compact('allData'));
+    }
+
+    public function customerPaidPdf()
+    {
+        $allData = payment::where('paid_status','!=','full_due')->get();
         return view('backend.pdf.customer-credit-pdf',compact('allData'));
     }
 

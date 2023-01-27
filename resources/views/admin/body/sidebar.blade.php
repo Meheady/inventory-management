@@ -8,7 +8,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="index.html" class="waves-effect">
+                    <a href="{{ route('dashboard') }}" class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
@@ -31,6 +31,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('customer.all') }}">All Customer</a></li>
                         <li><a href="{{ route('customer.credit') }}">Credit Customer</a></li>
+                        <li><a href="{{ route('customer.paid') }}">Paid Customer</a></li>
                     </ul>
                 </li>
                 <li>
@@ -63,7 +64,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-menu-fill"></i>
-                        <span>Manage Sells</span>
+                        <span>Manage Purchase</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('purchase.all') }}">All Purchase</a></li>
@@ -75,7 +76,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-menu-fill"></i>
-                        <span>Manage Invoice</span>
+                        <span>Manage Sells</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('invoice.add') }}">New Sell</a></li>

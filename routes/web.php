@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/customer/edit/{id}','customerEdit');
             Route::get('/customer/delete/{id}','customerDelete');
             Route::get('/customer/credit','customerCredit')->name('customer.credit');
-            Route::get('/customer/credit/pdf','customerCreditPdf')->name('customer.credit.pdf');
+            Route::get('/customer/paid','customerPaid')->name('customer.paid');
+            Route::get('/customer/paid/pdf','customerPaidPdf')->name('customer.paid.pdf');
             Route::get('/customer/invoice/edit/{invoice_id}','customerInvoiceEdit')->name('customer.invoice.edit');
             Route::post('/customer/invoice/update/{invoice_id}','customerInvoiceUpdate')->name('update.customer.invoice');
             Route::get('/customer/invoice/details/pdf/{invoice_id}','customerInvoiceDetailsPdf')->name('customer.invoice.details.pdf');
